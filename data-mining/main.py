@@ -1,16 +1,24 @@
 from scrapers.el_economista_scraper import ElEconomistaScraper
+from scrapers.infobae_scrapper import Infobae
 from scrapers.pagina_12_scraper import Pagina12Scraper
+from scrapers.perfil_scrapper import Perfil
 from scrapers.tn import TN
 from config import SessionLocal
 from models.db_models import Article, Newspaper, Section
 from logger import logger
 import time
 
+
 def save_article(article_data, db_session, newspaper_name, section_name):
     """
     Save the article into the database if it doesn't already exist.
     Store foreign keys for newspaper and section, along with the publication datetime.
     """
+    # Skip articles with a long body
+    if len(article_data['content']) > 30000:
+        print(f"Skipping large article: {article_data['title']}")
+        return
+
     existing_article = db_session.query(Article).filter_by(link=article_data['url']).first()
     if not existing_article:
         newspaper = db_session.query(Newspaper).filter_by(name=newspaper_name).first()
@@ -19,7 +27,7 @@ def save_article(article_data, db_session, newspaper_name, section_name):
         if not newspaper or not section:
             print(f"Error: Newspaper or Section not found.")
             return
-        
+
         # Save the article with publication datetime
         new_article = Article(
             title=article_data['title'],
@@ -36,7 +44,6 @@ def save_article(article_data, db_session, newspaper_name, section_name):
         print(f"Article already exists: {article_data['title']}")
 
 
-
 def run_scrapers():
     """
     Run all scrapers and store articles in the database for multiple sections.
@@ -45,10 +52,12 @@ def run_scrapers():
 
     scrapers = [
         ElEconomistaScraper(),
+        Infobae(),
         Pagina12Scraper(),
+        # Perfil(), # Perfil requires subscription
         TN(),
     ]
-    
+
     for scraper in scrapers:
         logger.info("Starting to scrape %s", scraper.__class__.__name__)
         for section_name, section_url in scraper.section_urls.items():
@@ -56,14 +65,15 @@ def run_scrapers():
             articles = scraper.scrape_section(section_name, section_url)
             logger.info("Found %s articles", len(articles))
             for article_url in articles:
-                time.sleep(1) # Add a delay to avoid hitting the server too frequently
+                time.sleep(1)  # Add a delay to avoid hitting the server too frequently
                 logger.info("Scraping article: %s", article_url)
                 article_data = scraper.scrape_article(article_url)
                 if article_data:
                     article_data['section'] = section_name
                     save_article(article_data, db_session, scraper.newspaper, section_name)
-    
+
     db_session.close()
+
 
 if __name__ == "__main__":
     run_scrapers()
