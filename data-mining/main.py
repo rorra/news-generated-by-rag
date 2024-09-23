@@ -3,6 +3,7 @@ from scrapers.pagina_12_scraper import Pagina12Scraper
 from config import SessionLocal
 from models.db_models import Article, Newspaper, Section
 from logger import logger
+import time
 
 def save_article(article_data, db_session, newspaper_name, section_name):
     """
@@ -43,7 +44,7 @@ def run_scrapers():
 
     scrapers = [
         ElEconomistaScraper(),
-        #Pagina12Scraper()
+        Pagina12Scraper()
     ]
     
     for scraper in scrapers:
@@ -53,6 +54,7 @@ def run_scrapers():
             articles = scraper.scrape_section(section_name, section_url)
             logger.info("Found %s articles", len(articles))
             for article_url in articles:
+                time.sleep(1) # Add a delay to avoid hitting the server too frequently
                 logger.info("Scraping article: %s", article_url)
                 article_data = scraper.scrape_article(article_url)
                 article_data['section'] = section_name
