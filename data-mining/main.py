@@ -1,5 +1,6 @@
 from scrapers.el_economista_scraper import ElEconomistaScraper
 from scrapers.pagina_12_scraper import Pagina12Scraper
+from scrapers.tn import TN
 from config import SessionLocal
 from models.db_models import Article, Newspaper, Section
 from logger import logger
@@ -44,7 +45,8 @@ def run_scrapers():
 
     scrapers = [
         ElEconomistaScraper(),
-        Pagina12Scraper()
+        Pagina12Scraper(),
+        TN(),
     ]
     
     for scraper in scrapers:
