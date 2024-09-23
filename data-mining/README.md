@@ -50,7 +50,7 @@ Internacional: https://tn.com.ar/internacional/
 Política: https://tn.com.ar/politica/
 Sociedad: https://tn.com.ar/sociedad/
 
-### Perfil
+### Perfil (Requiere suscripción)
 https://www.perfil.com/
 Economía: https://www.perfil.com/seccion/economia
 Internacional: https://www.perfil.com/seccion/internacional
