@@ -59,8 +59,9 @@ def run_scrapers():
                 time.sleep(1) # Add a delay to avoid hitting the server too frequently
                 logger.info("Scraping article: %s", article_url)
                 article_data = scraper.scrape_article(article_url)
-                article_data['section'] = section_name
-                save_article(article_data, db_session, scraper.newspaper, section_name)
+                if article_data:
+                    article_data['section'] = section_name
+                    save_article(article_data, db_session, scraper.newspaper, section_name)
     
     db_session.close()
 

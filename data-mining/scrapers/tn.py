@@ -39,6 +39,10 @@ class TN(BaseScraper):
         """
         soup = self.get_soup(article_url)
 
+        # Skip live articles
+        if "envivo/24hs/" in article_url:
+            return None
+
         # Parse title and content
         title = soup.find('h1', class_='article__title').get_text(strip=True)
         content_div = soup.find('div', class_='article__body')
