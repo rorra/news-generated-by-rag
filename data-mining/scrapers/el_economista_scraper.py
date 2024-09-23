@@ -64,12 +64,8 @@ class ElEconomistaScraper(BaseScraper):
                     if date_published:
                         published_at = datetime.fromisoformat(date_published.replace('Z', '+00:00'))
                         return published_at.astimezone(pytz.UTC)
-            except json.JSONDecodeError:
-                logger.error(f"Failed to parse JSON-LD data in a script tag for article: {article_url}")
-            except ValueError:
-                logger.error(f"Failed to parse datetime in a script tag for article: {article_url}")
             except Exception as e:
-                logger.error(f"Unexpected error processing JSON-LD for article {article_url}: {str(e)}")
+                pass  # Fail silently
 
         logger.warning(f"No valid datePublished found in any JSON-LD script for article: {article_url}")
         return None
