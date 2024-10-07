@@ -22,18 +22,15 @@ nltk.download('punkt_tab')
 db_session = SessionLocal()
 
 
+# Inicializar LanguageTool una vez, asi no se crean n= articulos de instancias
+# Se aumenta mucho la velocidad y ahorramos memoria.
+tool = language_tool_python.LanguageTool('es')
+
 def correct_spelling(text: str) -> str:
     """
     Corrects spelling and grammar in the given text using LanguageTool.
-
-    Args:
-        text (str): The text to be corrected.
-
-    Returns:
-        str: The corrected text.
     """
-    tool = language_tool_python.LanguageTool('es')
-    corrected_text = tool.correct(text)
+    corrected_text = tool.correct(text)  # Usa la misma instancia para cada noticia
     return corrected_text
 
 
@@ -137,6 +134,7 @@ def preprocess_news(publish_date: Optional[datetime] = None) -> Dict:
     """
     db_session = SessionLocal()
     try:
+        # Limitar la consulta a las primeras 10 noticias
         articles = db_session.query(Article).filter(
             Article.published_at >= publish_date
         ).order_by(Article.published_at.desc()).all()
@@ -144,6 +142,7 @@ def preprocess_news(publish_date: Optional[datetime] = None) -> Dict:
         print(f"Found {len(articles)} articles")
         preprocessed_articles = {}
         for article in articles:
+            print(f"Processing article: {article.title}")
             text = article.content
             text = correct_spelling(text)
             text = remove_duplicates(text)
@@ -199,4 +198,3 @@ if __name__ == "__main__":
         json.dump(preprocessed, f, ensure_ascii=False, indent=4)
     
     print(f"Preprocessed articles saved to {output_file}")
-
