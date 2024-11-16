@@ -8,6 +8,7 @@ import re
 import language_tool_python
 import argparse
 import json
+import spacy
 from datetime import datetime
 from typing import Dict, Optional
 from config import SessionLocal
@@ -18,6 +19,9 @@ import nltk
 nltk.download('punkt')
 nltk.download('punkt_tab')
 
+
+#spaCy model for spanish words
+nlp = spacy.load('es_core_news_sm')
 
 db_session = SessionLocal()
 
@@ -49,19 +53,41 @@ def remove_duplicates(text: str) -> str:
     return ' '.join(unique_sentences)
 
 
+def remove_special_characters(text: str) -> str:
+    # Remove special characters, allowing only letters, numbers, and spaces, using regex
+    text = re.sub(r'[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]', '', text)
+    return text
+
+
 def normalize_text(text: str) -> str:
     """
-    Normalizes the text by removing extra whitespace and trimming.
-
+    Cleans and normalizes text:
+        - Removes unnecessary spaces.
+        - Removes stop words.
+        - Applies lemmatization.
+    
     Args:
-        text (str): The input text to normalize.
+        text (str): Input text.
 
     Returns:
-        str: The normalized text.
+        str: Cleaned and normalized text.
     """
-    text = re.sub(r'\s+', ' ', text)
-    text = text.strip()
-    return text
+
+    # Remove extra spaces
+    text = re.sub(r'\s+', ' ', text).strip()
+    
+    # Process the text with spaCy
+    doc = nlp(text)
+    
+    # Filter tokens: remove stop words and punctuation, apply lemmatization
+    normalized_words = [
+        token.lemma_
+        for token in doc
+        if not token.is_stop and not token.is_punct
+    ]
+    
+    # Join normalized words into a single string
+    return ' '.join(normalized_words)
 
 
 def remove_irrelevant(text: str) -> str:
@@ -149,6 +175,7 @@ def preprocess_news(publish_date: Optional[datetime] = None) -> Dict:
             text = normalize_text(text)
             text = remove_links(text)
             text = remove_irrelevant(text)
+            text = remove_special_characters(text)
             text = segment_paragraphs(text)
             
             preprocessed_articles[article.title] = {

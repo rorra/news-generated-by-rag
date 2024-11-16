@@ -21,6 +21,11 @@ This project is a Python script designed to preprocess news articles stored in a
   nltk.download('punkt_tab')
   ```
 
+install spacy model
+```bash
+python -m spacy download es_core_news_sm
+```
+
 ### Usage
 
 1. **Preprocess the news articles:**
