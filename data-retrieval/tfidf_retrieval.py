@@ -5,18 +5,33 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from utils import get_preprocessed_json_file
 
-# Create the TF-IDF vectorizer
-vectorizer = TfidfVectorizer()
 
-
-def search_tfidf(query: str, top_n: int = 5) -> List[Tuple[str, float]]:
+def initialize_tfidf(corpus: List[str]) -> Tuple[TfidfVectorizer, 'scipy.sparse.csr.csr_matrix']:
     """
-    Search documents in the corpus using TF-IDF and cosine similarity.
+    Initializes the TF-IDF vectorizer and generates the TF-IDF matrix for the corpus.
+    
+    Args:
+        corpus (List[str]): List of document contents.
+    
+    Returns:
+        Tuple[TfidfVectorizer, csr_matrix]: Fitted TF-IDF vectorizer and the TF-IDF matrix.
+    """
+    vectorizer = TfidfVectorizer()
+    tfidf_matrix = vectorizer.fit_transform(corpus)
+    return vectorizer, tfidf_matrix
+
+
+def search_tfidf(query: str, vectorizer: TfidfVectorizer, tfidf_matrix, titles: List[str], top_n: int = 5) -> List[Tuple[str, float]]:
+    """
+    Searches documents in the corpus using TF-IDF and cosine similarity.
     
     Args:
         query (str): The search query.
+        vectorizer (TfidfVectorizer): Fitted TF-IDF vectorizer.
+        tfidf_matrix (csr_matrix): TF-IDF matrix of the corpus.
+        titles (List[str]): List of document titles.
         top_n (int): Number of top relevant results to return.
-
+    
     Returns:
         List[Tuple[str, float]]: List of document titles and their similarity scores.
     """
@@ -28,8 +43,6 @@ def search_tfidf(query: str, top_n: int = 5) -> List[Tuple[str, float]]:
     
     # Sort results by similarity in descending order
     top_indices = cosine_similarities.argsort()[::-1][:top_n]
-    
-    # Return the top titles and their similarity scores
     results = [(titles[i], cosine_similarities[i]) for i in top_indices]
     return results
 
@@ -76,13 +89,15 @@ if __name__ == "__main__":
     contents = [doc[1] for doc in documents]
 
     # Generate the TF-IDF matrix for the corpus
-    tfidf_matrix = vectorizer.fit_transform(contents)
+    vectorizer, tfidf_matrix = initialize_tfidf(contents)
 
-    results = search_tfidf(query)
+    results = search_tfidf(query, vectorizer, tfidf_matrix, titles)
 
     # Display the search results
     print(f"\nQuery: {query}")
-    print("\nRelevant results:")
-    for title, score in results:
-        print(f"Title: {title} - Similarity coissine: {score:.4f}")
-
+    if results:
+        print("\nRelevant results:")
+        for title, score in results:
+            print(f"Title: {title} - Similarity coissine: {score:.4f}")
+    else:
+        print("No relevant articles found.")

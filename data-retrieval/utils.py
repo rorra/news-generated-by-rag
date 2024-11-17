@@ -1,6 +1,7 @@
 import os
 import json
 
+
 def get_preprocessed_json_file(date: str) -> dict:
     """
     Dynamically retrieves the JSON content of a preprocessed file based on the given date.

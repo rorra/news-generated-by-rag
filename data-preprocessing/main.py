@@ -53,12 +53,6 @@ def remove_duplicates(text: str) -> str:
     return ' '.join(unique_sentences)
 
 
-def remove_special_characters(text: str) -> str:
-    # Remove special characters, allowing only letters, numbers, and spaces, using regex
-    text = re.sub(r'[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]', '', text)
-    return text
-
-
 def normalize_text(text: str) -> str:
     """
     Cleans and normalizes text:
@@ -175,7 +169,6 @@ def preprocess_news(publish_date: Optional[datetime] = None) -> Dict:
             text = normalize_text(text)
             text = remove_links(text)
             text = remove_irrelevant(text)
-            text = remove_special_characters(text)
             text = segment_paragraphs(text)
             
             preprocessed_articles[article.title] = {
