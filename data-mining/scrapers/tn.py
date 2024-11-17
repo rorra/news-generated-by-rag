@@ -46,6 +46,8 @@ class TN(BaseScraper):
         # Parse title and content
         title = soup.find('h1', class_='article__title').get_text(strip=True)
         content_div = soup.find('div', class_='article__body')
+        if content_div is None:
+            return None
         content = self.clean_and_get_text(content_div)
 
         # Extract the publication datetime
