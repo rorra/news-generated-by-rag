@@ -1,7 +1,8 @@
 import argparse
 from datetime import datetime
 from typing import List, Tuple
-from gensim.models import Word2Vec
+from gensim.models import KeyedVectors
+from gensim.downloader import load
 from sklearn.metrics.pairwise import cosine_similarity
 from utils import get_preprocessed_json_file
 import numpy as np
@@ -16,7 +17,7 @@ def compute_document_embedding(document: str) -> np.ndarray:
         np.ndarray: The averaged Word2Vec embedding for the document.
     """
     words = document.split()
-    word_embeddings = [model.wv[word] for word in words if word in model.wv]
+    word_embeddings = [model[word] for word in words if word in model]
 
     if not word_embeddings:
         return np.zeros(model.vector_size)
@@ -89,11 +90,10 @@ if __name__ == "__main__":
     titles = [doc[0] for doc in documents]
     contents = [doc[1] for doc in documents]
 
-    # Train Word2Vec model directly on the corpus
-    print("Training Word2Vec model on the corpus...")
-    tokenized_contents = [content.split() for content in contents]
-    model = Word2Vec(sentences=tokenized_contents, vector_size=100, window=5, min_count=1, workers=4)
-    print("Word2Vec model trained successfully.")
+    # Load pre-trained Word2Vec model from gensim-data
+    print("Loading pre-trained Word2Vec model from gensim-data...")
+    model = load("word2vec-google-news-300")
+    print("Pre-trained Word2Vec model loaded successfully.")
 
     # Generate embeddings for all documents
     document_embeddings = np.array([compute_document_embedding(content) for content in contents])
