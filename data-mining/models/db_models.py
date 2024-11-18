@@ -68,6 +68,7 @@ class ProcessedArticle(Base):
     processed_title = Column(String(255), nullable=False)
     processed_content = Column(Text, nullable=False)
     processed_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    keywords = Column(String(255), nullable=False)
 
     # Relationship to original article
     article = relationship("Article", back_populates="processed_article")
@@ -83,11 +84,12 @@ class ProcessedArticle(Base):
         return f"<ProcessedArticle(id={self.id}, article_id={self.article_id})>"
 
     @classmethod
-    def from_article(cls, article: Article, processed_title: str, processed_content: str) -> "ProcessedArticle":
+    def from_article(cls, article: Article, processed_title: str, processed_content: str, keywords: str) -> "ProcessedArticle":
         """Create a ProcessedArticle instance from an original Article."""
         return cls(
             article_id=article.id,
             article_created_at=article.created_at,
             processed_title=processed_title,
-            processed_content=processed_content
+            processed_content=processed_content,
+            keywords=keywords
         )
