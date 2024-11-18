@@ -82,6 +82,7 @@ def load_articles_from_db(
             'title': title,
             'content': content,
             'section': article.section.name,
+            'keywords': article.keywords,
             'published_at': article.published_at,
             'newspaper': article.newspaper.name
         })

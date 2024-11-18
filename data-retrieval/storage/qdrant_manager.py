@@ -87,6 +87,7 @@ class QdrantManager:
                 payload={
                     'original_id': article['id'],
                     'title': article['title'],
+                    'keywords': article['keywords'],
                     'section': article['section'],
                     'published_at': published_date,
                     'newspaper': article['newspaper']
@@ -156,6 +157,7 @@ class QdrantManager:
                 'original_id': hit.payload['original_id'],
                 'title': hit.payload['title'],
                 'section': hit.payload['section'],
+                'keywords': hit.payload['keywords'],
                 'published_at': hit.payload['published_at'],
                 'newspaper': hit.payload['newspaper']
             }
