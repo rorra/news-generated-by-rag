@@ -1,72 +1,137 @@
-Here’s the updated `README` with steps for the vectorizer and things to keep in mind:
+# News Article Preprocessor
 
----
+A robust, modular Python application for preprocessing Spanish news articles. This system processes raw news articles
+through a configurable pipeline of text preprocessing steps and stores the results in a database for later use in RAG (
+Retrieval-Augmented Generation) systems.
 
-## News Preprocessor
+## Features
 
-This project is a Python script designed to preprocess news articles stored in a database. The script applies various cleaning and normalization functions to the content of the articles and saves the preprocessed data into a JSON file. It also supports adding embeddings using a vectorization step for later retrieval tasks.
+- **Modular Architecture**: Each preprocessing step is encapsulated in its own class
+- **Batch Processing**: Efficiently handles large numbers of articles
+- **Error Handling**: Robust error handling and logging
+- **Progress Tracking**: Real-time processing status updates
+- **Database Integration**: Direct integration with SQL databases
+- **Configurable Pipeline**: Easy to add, remove, or modify preprocessing steps
 
-### Prerequisites
+## Architecture
 
-- Python 3.8 or higher.
-- Access to a SQLAlchemy-compatible database containing the `Article`, `Newspaper`, and `Section` tables.
-- Install the necessary dependencies from `requirements.txt`:
-  ```bash
-  pip install -r requirements.txt
-  ```
-
-- Download NLTK data:
-  ```python
-  nltk.download('punkt')
-  nltk.download('punkt_tab')
-  ```
-
-install spacy model
-```bash
-python -m spacy download es_core_news_sm
+```
+/
+├── preprocessors/             # Preprocessing components
+│   ├── base.py                # Abstract base class
+│   ├── spelling.py            # Spelling correction
+│   ├── duplicate_remover.py   # Duplicate sentence removal
+│   ├── text_normalizer.py     # Text normalization
+│   ├── content_cleaner.py     # Content cleaning
+│   └── paragraph_segmenter.py # Paragraph segmentation
+├── services/                  # Business logic
+│   └── article_processor.py   # Main processing service
+├── config.py                  # Configuration settings
+└── main.py                    # Application entry point
 ```
 
-### Usage
-
-1. **Update PYTHONPATH:**
-
-   Before running the script, ensure that the project directory is in the `PYTHONPATH` environment variable. You can do this by running the following command in the project directory:
+1. Install dependencies:
    ```bash
-   export PYTHONPATH="${PYTHONPATH}:$(pwd):$(pwd)/../data-mining"
+   pip install -r requirements.txt
    ```
 
-2. **Preprocess the news articles:**
-
-   You can specify the publication date to run the script from a given date to the present. For example, to run it from `2024-01-01`:
+2. Download required NLTK data:
    ```bash
-   python main.py --date YYYY-MM-DD
-   ```
-   Or run without a date to process articles from the current day:
-   ```bash
-   python main.py
+   python -c "import nltk; nltk.download('punkt'); nltk.download('punkt_tab')"
    ```
 
-3. **Generate embeddings with the vectorizer:**
+3. Install Spanish spaCy model:
+   ```bash
+   python -m spacy download es_core_news_sm
+   ```
 
-   After preprocessing, you can use the `vectorize.py` script to generate embeddings for the articles.
+## Configuration
 
-   - By default, the vectorizer uses the `stsb-xlm-r-multilingual` model, which is highly accurate for multilingual texts, including Spanish.
-   - You can also use the `distiluse-base-multilingual-cased-v1` model for faster processing with lower resource usage, depending on your use case.
+1. Configure your database connection in `.env`:
+   ```
+   DATABASE_URL=mysql+mysqlconnector://root:password@localhost/news_db
+   ```
 
-   **Steps:**
-   1. Ensure that the `preprocessed_files` folder contains the JSON file generated from the preprocessing step (e.g., `20241001_preprocessed_files.json`).
-   2. Run the vectorizer:
-      ```bash
-      python data-preprocessing/vectorize.py
-      ```
+2. (Optional) Adjust preprocessing parameters in each preprocessor class:
+    - `sentences_per_paragraph` in ParagraphSegmenter
+    - `batch_size` in ArticleProcessor
+    - Language settings in various preprocessors
 
-   **Key Points:**
-   - The vectorizer will generate embeddings for each article and save the output in a new JSON file (e.g., `noticias_con_embeddings.json`).
-   - Choose the embedding model based on your context:
-     - **For high accuracy in Spanish:** Use `stsb-xlm-r-multilingual`.
-     - **For faster and resource-limited tasks:** Use `distiluse-base-multilingual-cased-v1`.
+## Usage
 
-### Things to Keep in Mind:
+Run the preprocessor:
 
-- **Memory Usage:** For large datasets, ensure that your system has enough RAM, especially if using Java-based tools like `language_tool_python` for spelling correction. You may limit the number of articles processed or adjust memory settings in Java if needed.
-- **Embedding Model Choice:** The model impacts performance and accuracy. Use `stsb-xlm-r-multilingual` for better semantic understanding or switch to `distiluse` for speed and efficiency.
+```bash
+export PYTHONPATH="$(pwd):$(pwd)/../data-mining"
+python main.py
+```
+
+The system will:
+
+1. Find all unprocessed articles in the database
+2. Apply the preprocessing pipeline
+3. Store processed results
+4. Log progress and any errors
+
+## Preprocessing Pipeline
+
+Current preprocessing steps:
+
+1. **Spelling Correction** (`SpellingCorrector`)
+    - Corrects spelling and grammar errors
+    - Uses LanguageTool for Spanish
+
+2. **Duplicate Removal** (`DuplicateRemover`)
+    - Removes duplicate sentences
+    - Preserves original sentence order
+
+3. **Text Normalization** (`TextNormalizer`)
+    - Removes extra whitespace
+    - Removes stop words
+    - Applies lemmatization
+    - Uses spaCy's Spanish model
+
+4. **Content Cleaning** (`ContentCleaner`)
+    - Removes irrelevant phrases
+    - Removes URLs and broken links
+
+5. **Paragraph Segmentation** (`ParagraphSegmenter`)
+    - Groups sentences into paragraphs
+    - Improves readability
+
+## Adding New Preprocessors
+
+1. Create a new class in the `preprocessors` directory
+2. Inherit from `TextPreprocessor`
+3. Implement the `process` method
+4. Add to the pipeline in `create_preprocessor_pipeline()`
+
+Example:
+
+```python
+from .base import TextPreprocessor
+
+
+class MyNewPreprocessor(TextPreprocessor):
+    def process(self, text: str) -> str:
+        # Your preprocessing logic here
+        return processed_text
+```
+
+## Performance Considerations
+
+- **Memory Usage**:
+    - Batch processing limits memory consumption
+    - LanguageTool and spaCy models are cached
+    - Each batch is committed independently
+
+- **Processing Speed**:
+    - Parallel processing can be added for larger datasets
+    - Batch size can be adjusted based on system capabilities
+
+## Error Handling
+
+- Each batch is processed independently
+- Failed batches are logged and rolled back
+- Processing continues with the next batch
+- Detailed error logging for debugging

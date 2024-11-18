@@ -1,215 +1,101 @@
-import sys
-import os
-import re
-import language_tool_python
-import argparse
-import json
-import spacy
-from datetime import datetime
-from typing import Dict, Optional
-from config import SessionLocal
-from models.db_models import Newspaper, Section, Article
+"""
+Main module for article preprocessing.
 
-# NLTK data downloaded for NLP tasks
+This module provides the entry point for the article preprocessing system.
+It sets up logging, initializes the preprocessing pipeline, and orchestrates
+the processing of articles.
+
+Usage:
+    python main.py
+"""
+
 import nltk
+from typing import List
+import logging
+from config import SessionLocal
+from preprocessors.base import TextPreprocessor
+from preprocessors.spelling import SpellingCorrector
+from preprocessors.duplicate_remover import DuplicateRemover
+from preprocessors.case_normalizer import CaseNormalizer
+from preprocessors.text_normalizer import TextNormalizer
+from preprocessors.content_cleaner import ContentCleaner
+from preprocessors.paragraph_segmenter import ParagraphSegmenter
+from services.article_processor import ArticleProcessor
 
-nltk.download('punkt')
-nltk.download('punkt_tab')
 
-# spaCy model for spanish words
-nlp = spacy.load('es_core_news_sm')
-
-db_session = SessionLocal()
-
-# Inicializar LanguageTool una vez, asi no se crean n= articulos de instancias
-# Se aumenta mucho la velocidad y ahorramos memoria.
-tool = language_tool_python.LanguageTool('es')
-
-
-def correct_spelling(text: str) -> str:
+def setup_logging():
     """
-    Corrects spelling and grammar in the given text using LanguageTool.
+    Configure logging for the application.
+
+    Sets up basic logging configuration with appropriate format and level.
     """
-    corrected_text = tool.correct(text)  # Usa la misma instancia para cada noticia
-    return corrected_text
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    )
 
 
-def remove_duplicates(text: str) -> str:
+def download_nltk_data():
     """
-    Removes duplicate sentences from the text.
+    Download required NLTK data.
 
-    Args:
-        text (str): The input text containing potential duplicate sentences.
+    Downloads the necessary NLTK resources for text processing.
+    """
+    nltk_resources = ['punkt', 'punkt_tab']
+    for resource in nltk_resources:
+        nltk.download(resource)
+
+
+def create_preprocessor_pipeline() -> List[TextPreprocessor]:
+    """
+    Create and return the preprocessing pipeline.
 
     Returns:
-        str: The text with duplicate sentences removed.
+        List[TextPreprocessor]: A list of preprocessor instances in the order
+        they should be applied.
     """
-    sentences = nltk.sent_tokenize(text, language='spanish')
-    unique_sentences = list(dict.fromkeys(sentences))
-    return ' '.join(unique_sentences)
-
-
-def normalize_text(text: str) -> str:
-    """
-    Cleans and normalizes text:
-        - Removes unnecessary spaces.
-        - Removes stop words.
-        - Applies lemmatization.
-    
-    Args:
-        text (str): Input text.
-
-    Returns:
-        str: Cleaned and normalized text.
-    """
-
-    # Remove extra spaces
-    text = re.sub(r'\s+', ' ', text).strip()
-
-    # Process the text with spaCy
-    doc = nlp(text)
-
-    # Filter tokens: remove stop words and punctuation, apply lemmatization
-    normalized_words = [
-        token.lemma_
-        for token in doc
-        if not token.is_stop and not token.is_punct
+    return [
+        SpellingCorrector(language='es'),
+        DuplicateRemover(language='spanish'),
+        CaseNormalizer(),  # Convert to lowercase before normalization
+        TextNormalizer(model='es_core_news_sm'),
+        ContentCleaner(),
+        ParagraphSegmenter(language='spanish')
     ]
 
-    # Join normalized words into a single string
-    return ' '.join(normalized_words)
 
-
-def remove_irrelevant(text: str) -> str:
+def main():
     """
-    Removes irrelevant information or broken links from the text.
+    Main function to run the article preprocessing system.
 
-    Args:
-        text (str): The input text from which to remove irrelevant content.
-
-    Returns:
-        str: The text without irrelevant parts.
+    This function:
+    1. Sets up logging
+    2. Downloads required NLTK data
+    3. Creates the preprocessing pipeline
+    4. Processes all unprocessed articles
+    5. Handles any errors that occur during processing
     """
-    text = re.sub(r'Lee también.*?\. ', '', text)
-    return text
+    setup_logging()
+    logger = logging.getLogger(__name__)
 
+    download_nltk_data()
 
-def remove_links(text: str) -> str:
-    """
-    Removes hyperlinks from the text.
+    preprocessors = create_preprocessor_pipeline()
+    processor = ArticleProcessor(preprocessors)
 
-    Args:
-        text (str): The input text that may contain hyperlinks.
-
-    Returns:
-        str: The text with hyperlinks removed.
-    """
-    # Regular expression pattern to identify URLs
-    url_pattern = r'http[s]?://\S+|www\.\S+'
-    text = re.sub(url_pattern, '', text)
-    return text
-
-
-def segment_paragraphs(text: str) -> str:
-    """
-    Segments the text into paragraphs every four sentences to improve readability.
-
-    Args:
-        text (str): The input text to segment into paragraphs.
-
-    Returns:
-        str: The text segmented into paragraphs.
-    """
-    sentences = nltk.sent_tokenize(text, language='spanish')
-    paragraphs = []
-    current_paragraph = ''
-    for i, sentence in enumerate(sentences):
-        current_paragraph += sentence + ' '
-        if (i + 1) % 4 == 0:
-            paragraphs.append(current_paragraph.strip())
-            current_paragraph = ''
-    if current_paragraph:
-        paragraphs.append(current_paragraph.strip())
-    return '\n\n'.join(paragraphs)
-
-
-def preprocess_news(publish_date: Optional[datetime] = None) -> Dict:
-    """
-    Preprocesses news articles published after a certain date by retrieving them from the database
-    and applying text preprocessing functions.
-
-    Args:
-        publish_date (datetime, optional): The date from which to retrieve and preprocess articles.
-                                           Defaults to the current date if not provided.
-
-    Returns:
-        Dict: A dictionary containing the preprocessed articles.
-
-    Note:
-        This function assumes that you have a database session and ORM models defined.
-    """
-    db_session = SessionLocal()
+    db = SessionLocal()
     try:
-        # Limitar la consulta a las primeras 10 noticias
-        articles = db_session.query(Article).filter(
-            Article.published_at >= publish_date
-        ).order_by(Article.published_at.desc()).all()
+        logger.info("Starting article processing...")
+        total_processed = processor.process_and_store(db)
+        logger.info(f"Successfully processed {total_processed} articles")
 
-        print(f"Found {len(articles)} articles")
-        preprocessed_articles = {}
-        for article in articles:
-            print(f"Processing article: {article.title}")
-            text = article.content
-            text = correct_spelling(text)
-            text = remove_duplicates(text)
-            text = normalize_text(text)
-            text = remove_links(text)
-            text = remove_irrelevant(text)
-            text = segment_paragraphs(text)
-
-            preprocessed_articles[article.title] = {
-                'newspaper': article.newspaper.name,
-                'section': article.section.name,
-                'published_at': article.published_at.isoformat(),
-                'title': article.title,
-                'content': text
-            }
-        return preprocessed_articles
     except Exception as e:
-        print(f"Error to query database: {e}")
+        logger.error(f"Error processing articles: {e}")
+        raise
+
     finally:
-        db_session.close()
+        db.close()
 
 
 if __name__ == "__main__":
-    # Set up argument parser
-    parser = argparse.ArgumentParser(description='Preprocess news articles.')
-    parser.add_argument('--date', type=str, required=False, help='Publish date in YYYY-MM-DD format')
-
-    args = parser.parse_args()
-
-    # Convert the input date string to a datetime object
-    try:
-        if args.date:
-            # User provided a date, set time to midnight
-            publish_date = datetime.strptime(args.date, '%Y-%m-%d')
-        else:
-            # Use current date at midnight
-            publish_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-    except ValueError:
-        print("Incorrect date format. Please use YYYY-MM-DD.")
-        exit(1)
-
-    print(f"Start preprocessing with publish date {publish_date}")
-    preprocessed = preprocess_news(publish_date)
-    print(f"Preprocessed {len(preprocessed)} files")
-
-    # Save preprocessed files
-    formatted_date = publish_date.strftime('%Y%m%d')
-    output_dir = os.path.join(os.path.dirname(__file__), 'preprocessed_files')
-    os.makedirs(output_dir, exist_ok=True)
-    output_file = os.path.join(output_dir, f'{formatted_date}_preprocessed_files.json')
-    with open(output_file, 'w', encoding='utf-8') as f:
-        json.dump(preprocessed, f, ensure_ascii=False, indent=4)
-
-    print(f"Preprocessed articles saved to {output_file}")
+    main()
