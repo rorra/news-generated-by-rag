@@ -18,7 +18,8 @@ def insert_articles(json_file):
                 "title": article_data['title'],
                 "newspaper": article_data['newspaper'],
                 "section": article_data['section'],
-                "published_at": article_data['published_at']
+                "published_at": article_data['published_at'],
+                "keywords": article_data['keywords']
             }
         }
         points.append(point)
