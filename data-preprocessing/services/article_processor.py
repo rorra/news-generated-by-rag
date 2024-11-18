@@ -49,7 +49,7 @@ class ArticleProcessor:
             processed_text = preprocessor.process(processed_text)
         return processed_text
 
-    def process_article(self, article: Article) -> ProcessedArticle:
+    def process_article(self, article: Article, extract_kw=True) -> ProcessedArticle:
         """
         Process a single article and create a ProcessedArticle instance.
 
@@ -62,7 +62,10 @@ class ArticleProcessor:
         processed_title = self.process_text(article.title)
         processed_content = self.process_text(article.content)
         
-        keywords = self.keyword_extractor.extract_keywords(processed_title, processed_content)
+        if extract_kw:
+            keywords = self.keyword_extractor.extract_keywords(processed_title, processed_content)
+        else:
+            keywords = "{}"
                 
         return ProcessedArticle.from_article(
             article=article,
