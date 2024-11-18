@@ -19,6 +19,8 @@ import nltk
 nltk.download('punkt')
 nltk.download('punkt_tab')
 
+from KeywordsSpa import extract_keywords
+
 
 #spaCy model for spanish words
 nlp = spacy.load('es_core_news_sm')
@@ -177,12 +179,16 @@ def preprocess_news(publish_date: Optional[datetime] = None) -> Dict:
             text = remove_irrelevant(text)
             text = remove_special_characters(text)
             text = segment_paragraphs(text)
+
+            title = correct_spelling(remove_duplicates(normalize_text(remove_irrelevant(remove_special_characters(article.title)))))
+            keywords = extract_keywords(title+" "+text)
             
             preprocessed_articles[article.title] = {
                 'newspaper': article.newspaper.name,
                 'section': article.section.name,                
                 'published_at': article.published_at.isoformat(),
                 'title': article.title,
+                'keywords': keywords,
                 'content': text
             }
         return preprocessed_articles
