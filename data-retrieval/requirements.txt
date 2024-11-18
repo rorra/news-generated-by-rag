@@ -1,3 +1,15 @@
 numpy==2.0.2
+torch==2.5.1
+transformers==4.46.2
+sentence-transformers==3.3.0
 scikit-learn==1.5.2
+rank_bm25==0.2.2
 qdrant-client==1.12.1
+sqlalchemy==2.0.35
+PyYAML==6.0.2
+tqdm==4.67.0
+pytest==8.3.3
+python-dotenv==1.0.1
+pandas==2.2.3
+plotly==5.24.1
+kaleido==0.4.1

@@ -1,0 +1,27 @@
+qdrant:
+  # For local development (Docker)
+  local:
+    host: localhost
+    port: 6333
+  # For production (Cloud)
+  cloud:
+    url: "https://YOUR-CLUSTER-URL.qdrant.io"
+    api_key: ${QDRANT_API_KEY}
+
+embedders:
+  tfidf:
+    max_features: 384
+
+  sbert:
+    model_name: "hiiamsid/sentence_similarity_spanish_es"
+
+  dpr:
+    model_name: "facebook/dpr-question_encoder-single-nq-base"
+
+  minilm:
+    model_name: "sentence-transformers/all-MiniLM-L6-v2"
+
+processing:
+  batch_size: 32
+  min_words: 500
+  max_words: 20000

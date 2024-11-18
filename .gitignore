@@ -2,3 +2,5 @@
 
 # PyCharm IDE
 .idea
+
+__pycache__
