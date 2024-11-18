@@ -25,7 +25,8 @@ Retrieval-Augmented Generation) systems.
 │   ├── content_cleaner.py     # Content cleaning
 │   └── paragraph_segmenter.py # Paragraph segmentation
 ├── services/                  # Business logic
-│   └── article_processor.py   # Main processing service
+│   ├── article_processor.py   # Main processing service
+│   └── keyword_extractor.py   # Keyword extractor from articles
 ├── config.py                  # Configuration settings
 └── main.py                    # Application entry point
 ```

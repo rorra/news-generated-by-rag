@@ -81,7 +81,7 @@ def main():
     download_nltk_data()
 
     preprocessors = create_preprocessor_pipeline()
-    processor = ArticleProcessor(preprocessors)
+    processor = ArticleProcessor(preprocessors, batch_size=500)
 
     db = SessionLocal()
     try:
