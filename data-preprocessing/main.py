@@ -1,9 +1,5 @@
 import sys
 import os
-
-parent_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'data-mining'))
-sys.path.append(parent_dir)
-
 import re
 import language_tool_python
 import argparse
@@ -16,19 +12,19 @@ from models.db_models import Newspaper, Section, Article
 
 # NLTK data downloaded for NLP tasks
 import nltk
+
 nltk.download('punkt')
 nltk.download('punkt_tab')
 
-
-#spaCy model for spanish words
+# spaCy model for spanish words
 nlp = spacy.load('es_core_news_sm')
 
 db_session = SessionLocal()
 
-
 # Inicializar LanguageTool una vez, asi no se crean n= articulos de instancias
 # Se aumenta mucho la velocidad y ahorramos memoria.
 tool = language_tool_python.LanguageTool('es')
+
 
 def correct_spelling(text: str) -> str:
     """
@@ -69,17 +65,17 @@ def normalize_text(text: str) -> str:
 
     # Remove extra spaces
     text = re.sub(r'\s+', ' ', text).strip()
-    
+
     # Process the text with spaCy
     doc = nlp(text)
-    
+
     # Filter tokens: remove stop words and punctuation, apply lemmatization
     normalized_words = [
         token.lemma_
         for token in doc
         if not token.is_stop and not token.is_punct
     ]
-    
+
     # Join normalized words into a single string
     return ' '.join(normalized_words)
 
@@ -158,7 +154,7 @@ def preprocess_news(publish_date: Optional[datetime] = None) -> Dict:
         articles = db_session.query(Article).filter(
             Article.published_at >= publish_date
         ).order_by(Article.published_at.desc()).all()
-        
+
         print(f"Found {len(articles)} articles")
         preprocessed_articles = {}
         for article in articles:
@@ -170,10 +166,10 @@ def preprocess_news(publish_date: Optional[datetime] = None) -> Dict:
             text = remove_links(text)
             text = remove_irrelevant(text)
             text = segment_paragraphs(text)
-            
+
             preprocessed_articles[article.title] = {
                 'newspaper': article.newspaper.name,
-                'section': article.section.name,                
+                'section': article.section.name,
                 'published_at': article.published_at.isoformat(),
                 'title': article.title,
                 'content': text
@@ -183,7 +179,6 @@ def preprocess_news(publish_date: Optional[datetime] = None) -> Dict:
         print(f"Error to query database: {e}")
     finally:
         db_session.close()
-    
 
 
 if __name__ == "__main__":
@@ -216,5 +211,5 @@ if __name__ == "__main__":
     output_file = os.path.join(output_dir, f'{formatted_date}_preprocessed_files.json')
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(preprocessed, f, ensure_ascii=False, indent=4)
-    
+
     print(f"Preprocessed articles saved to {output_file}")

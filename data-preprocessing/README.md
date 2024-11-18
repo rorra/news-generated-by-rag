@@ -28,7 +28,14 @@ python -m spacy download es_core_news_sm
 
 ### Usage
 
-1. **Preprocess the news articles:**
+1. **Update PYTHONPATH:**
+
+   Before running the script, ensure that the project directory is in the `PYTHONPATH` environment variable. You can do this by running the following command in the project directory:
+   ```bash
+   export PYTHONPATH="${PYTHONPATH}:$(pwd):$(pwd)/../data-mining"
+   ```
+
+2. **Preprocess the news articles:**
 
    You can specify the publication date to run the script from a given date to the present. For example, to run it from `2024-01-01`:
    ```bash
@@ -39,7 +46,7 @@ python -m spacy download es_core_news_sm
    python main.py
    ```
 
-2. **Generate embeddings with the vectorizer:**
+3. **Generate embeddings with the vectorizer:**
 
    After preprocessing, you can use the `vectorize.py` script to generate embeddings for the articles.
 

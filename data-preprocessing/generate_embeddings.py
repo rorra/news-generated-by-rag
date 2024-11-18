@@ -4,14 +4,17 @@ from sentence_transformers import SentenceTransformer
 # Cargar el modelo de embeddings preentrenado
 model = SentenceTransformer('all-MiniLM-L6-v2')
 
+
 def get_embedding(text: str):
     """Genera el embedding para el texto de entrada."""
     return model.encode(text)
+
 
 def load_preprocessed_articles(file_path: str):
     """Carga el archivo JSON con las noticias preprocesadas."""
     with open(file_path, 'r', encoding='utf-8') as f:
         return json.load(f)
+
 
 def add_embeddings_to_articles(preprocessed_articles):
     """Añade embeddings a las noticias preprocesadas."""
@@ -21,10 +24,12 @@ def add_embeddings_to_articles(preprocessed_articles):
         article_data['embedding'] = embedding.tolist()  # Añade el embedding como lista
     return preprocessed_articles
 
+
 def save_articles_with_embeddings(preprocessed_articles, output_file: str):
     """Guarda las noticias con embeddings en un nuevo archivo JSON."""
     with open(output_file, 'w', encoding='utf-8') as f:
         json.dump(preprocessed_articles, f, ensure_ascii=False, indent=4)
+
 
 if __name__ == "__main__":
     # Ruta del archivo JSON con las noticias preprocesadas
