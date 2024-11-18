@@ -132,6 +132,7 @@ def main():
                         'original_id': article['id'],
                         'title': article['title'],
                         'section': article['section'],
+                        'keywords': article['keywords'],
                         'published_at': published_date,
                         'newspaper': article['newspaper']
                     }

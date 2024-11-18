@@ -70,6 +70,7 @@ The system will:
 
 1. Find all unprocessed articles in the database
 2. Apply the preprocessing pipeline
+3. Extract keywords from the processed text
 3. Store processed results
 4. Log progress and any errors
 
@@ -116,6 +117,21 @@ class MyNewPreprocessor(TextPreprocessor):
     def process(self, text: str) -> str:
         # Your preprocessing logic here
         return processed_text
+```
+
+## Outside the pipeline
+
+- **Keyword Generation**:
+    - Identifies meaningful words
+    - Uses  BERT model to produce embeddings for document and words.
+    - Calculate the similarity between the document and the words to determine relevance.
+    - Weights the values with a TF-IDF matrix to refine the results.
+
+```python
+from services.keyword_generator import KeywordGenerator
+
+keygen = KeywordGenerator(model_path='path/to-bert-model')
+keywords = keygen.generate_keywords(processed_text, top_n=5)
 ```
 
 ## Performance Considerations
