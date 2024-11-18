@@ -8,6 +8,7 @@ preprocessing pipeline and storing them in the database.
 from typing import List
 from sqlalchemy.orm import Session
 from preprocessors.base import TextPreprocessor
+from services.keyword_extractor import KeywordExtractor
 from models.db_models import Article, ProcessedArticle
 
 
@@ -30,6 +31,8 @@ class ArticleProcessor:
         """
         self.preprocessors = preprocessors
         self.batch_size = batch_size
+
+        self.keyword_extractor = KeywordExtractor()
 
     def process_text(self, text: str) -> str:
         """
@@ -58,11 +61,14 @@ class ArticleProcessor:
         """
         processed_title = self.process_text(article.title)
         processed_content = self.process_text(article.content)
-
+        
+        keywords = self.keyword_extractor.extract_keywords(processed_title, processed_content)
+                
         return ProcessedArticle.from_article(
             article=article,
             processed_title=processed_title,
-            processed_content=processed_content
+            processed_content=processed_content,
+            keywords=keywords
         )
 
     def process_and_store(self, db: Session) -> int:
@@ -107,7 +113,6 @@ class ArticleProcessor:
                 print(f"Error processing batch: {e}")
                 db.rollback()
                 raise
-
+            break
         return total_processed
-
 
