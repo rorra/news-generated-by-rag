@@ -23,6 +23,7 @@ class Section(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
     articles = relationship("Article", back_populates="section")
+    generated_news = relationship("GeneratedNews", back_populates="section")  # Added relationship
 
     def __repr__(self):
         return f"<Section(id={self.id}, name='{self.name}')>"
@@ -117,4 +118,3 @@ class GeneratedNews(Base):
 
     def __repr__(self):
         return f"<GeneratedNews(id={self.id}, section_id={self.section_id}, title='{self.title}')>"
-   
