@@ -2,3 +2,4 @@
 config/config.yaml
 *.log
 evaluation/results/*
+evaluation/visualizations/*

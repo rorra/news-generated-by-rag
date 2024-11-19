@@ -60,14 +60,16 @@ def process_articles(articles: List[Dict], embedder, batch_size: int = 32) -> Li
 def main():
     parser = argparse.ArgumentParser(description='Index articles in Qdrant with different embedding methods')
     parser.add_argument('--embedder-type', required=True,
-                      default=['tfidf', 'bm25', 'dpr', 'sbert', 'minilm'],
-                      help='Type of embedder to use')
+                        choices=['tfidf', 'bm25', 'dpr', 'sbert', 'minilm'],
+                        help='Type of embedder to use')
     parser.add_argument('--local', action='store_true',
-                      help='Use local Qdrant instance')
+                        help='Use local Qdrant instance')
     parser.add_argument('--use-processed', action='store_true',
-                      help='Use processed articles instead of raw articles')
+                        help='Use processed articles instead of raw articles')
     parser.add_argument('--batch-size', type=int,
-                      help='Batch size for processing')
+                        help='Batch size for processing')
+    parser.add_argument('--min-keyword-score', type=float, default=0.0,
+                        help='Minimum score threshold for including keywords')
 
     args = parser.parse_args()
 
@@ -88,13 +90,14 @@ def main():
         batch_size = args.batch_size or config['processing']['batch_size']
 
         try:
-            # Load articles
+            # Load articles with keyword score filtering
             logger.info("Loading articles from database...")
             articles = load_articles_from_db(
                 session,
                 use_processed=args.use_processed,
                 min_words=config['processing']['min_words'],
-                max_words=config['processing']['max_words']
+                max_words=config['processing']['max_words'],
+                min_keyword_score=args.min_keyword_score
             )
             logger.info(f"Loaded {len(articles)} articles")
 
@@ -125,6 +128,10 @@ def main():
             for idx, (article, embedding) in enumerate(zip(articles, embeddings)):
                 published_date = article['published_at'].strftime('%Y-%m-%d') if article['published_at'] else None
 
+                # Split keywords and scores for storage
+                keywords = [kw for kw, _ in article['keywords']]
+                keyword_scores = [score for _, score in article['keywords']]
+
                 point = PointStruct(
                     id=idx,
                     vector=embedding.tolist(),
@@ -132,7 +139,8 @@ def main():
                         'original_id': article['id'],
                         'title': article['title'],
                         'section': article['section'],
-                        'keywords': article['keywords'],
+                        'keywords': keywords,
+                        'keyword_scores': keyword_scores,
                         'published_at': published_date,
                         'newspaper': article['newspaper']
                     }
@@ -140,15 +148,31 @@ def main():
                 points.append(point)
 
             # Insert points in batches to avoid memory issues with large datasets
-            batch_size = 100  # Adjust based on your system's memory
-            for i in tqdm(range(0, len(points), batch_size), desc="Uploading to Qdrant"):
-                batch = points[i:i + batch_size]
+            upload_batch_size = 100  # Adjust based on your system's memory
+            for i in tqdm(range(0, len(points), upload_batch_size), desc="Uploading to Qdrant"):
+                batch = points[i:i + upload_batch_size]
                 qdrant.upsert(
                     collection_name=embedder.collection_name,
                     points=batch
                 )
 
             logger.info(f"Successfully indexed {len(articles)} articles with {args.embedder_type}")
+
+            # Log keyword statistics
+            total_keywords = sum(len(article['keywords']) for article in articles)
+            avg_keywords = total_keywords / len(articles) if articles else 0
+            logger.info(f"Average keywords per article: {avg_keywords:.2f}")
+
+            # Log score distribution
+            all_scores = [score for article in articles for _, score in article['keywords']]
+            if all_scores:
+                min_score = min(all_scores)
+                max_score = max(all_scores)
+                avg_score = sum(all_scores) / len(all_scores)
+                logger.info(f"Keyword score distribution:")
+                logger.info(f"  Min: {min_score:.4f}")
+                logger.info(f"  Max: {max_score:.4f}")
+                logger.info(f"  Avg: {avg_score:.4f}")
 
         finally:
             session.close()

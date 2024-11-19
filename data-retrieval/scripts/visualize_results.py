@@ -41,9 +41,8 @@ def main():
     output_dir = Path(args.output_dir)
     output_dir.mkdir(exist_ok=True)
 
-    if args.format in ['html', 'all']:
-        print("Generating HTML report...")
-        visualizer.generate_report(output_dir)
+    print("Generating HTML report...")
+    visualizer.generate_report(output_dir)
 
     if args.format in ['png', 'all']:
         print("Generating individual plots...")
@@ -51,11 +50,8 @@ def main():
         metrics_fig = visualizer.create_metrics_comparison()
         metrics_fig.write_image(output_dir / 'metrics_comparison.png')
 
-        section_fig = visualizer.create_section_performance()
-        section_fig.write_image(output_dir / 'section_performance.png')
-
-        query_fig = visualizer.create_query_type_comparison()
-        query_fig.write_image(output_dir / 'query_distribution.png')
+        query_fig = visualizer.create_query_type_performance()
+        query_fig.write_image(output_dir / 'query_type_performance.png')
 
         time_fig = visualizer.create_execution_time_plot()
         time_fig.write_image(output_dir / 'execution_time.png')

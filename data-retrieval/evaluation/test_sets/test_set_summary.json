@@ -1,12 +1,17 @@
 {
-  "total_queries": 56,
+  "total_queries": 240,
   "by_section": {
-    "Econom\u00eda": 10,
-    "Internacional": 10,
-    "Pol\u00edtica": 10,
-    "Sociedad": 10
+    "Econom\u00eda": 50,
+    "Internacional": 50,
+    "Pol\u00edtica": 50,
+    "Sociedad": 50
   },
-  "with_date": 28,
-  "with_section": 40,
-  "cross_section": 16
+  "query_types": {
+    "semantic_only": 35,
+    "keyword_only": 85,
+    "combined": 85
+  },
+  "with_date": 120,
+  "with_section": 200,
+  "cross_section": 40
 }

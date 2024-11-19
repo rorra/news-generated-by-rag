@@ -5,13 +5,13 @@ This module provides functionality for evaluating the performance of different
 embedding and retrieval strategies for the news article RAG system.
 """
 
-from typing import List, Dict, Any, Optional
-import time
+from typing import List, Dict, Any, Optional, Set, Tuple
 from dataclasses import dataclass
 from datetime import datetime
+import time
 import numpy as np
-from sklearn.metrics import precision_score, recall_score, ndcg_score
-from qdrant_client.models import Filter, FieldCondition, MatchValue
+from sklearn.metrics import ndcg_score
+from storage.qdrant_manager import QdrantManager
 
 
 @dataclass
@@ -20,6 +20,8 @@ class SearchQuery:
     prompt: str
     date: Optional[str] = None
     section: Optional[str] = None
+    keywords: Optional[List[str]] = None
+    min_keyword_score: float = 0.0
 
 
 @dataclass
@@ -36,22 +38,29 @@ class EvaluationMetrics:
     precision: float
     recall: float
     ndcg: float
+    keyword_precision: float
+    keyword_recall: float
+    keyword_f1: float
     mean_execution_time: float
     queries_per_second: float
 
 
 class RAGEvaluator:
-    """
-    Class for evaluating RAG system performance across different scenarios.
+    """Class for evaluating RAG system performance across different scenarios."""
 
-    This evaluator measures retrieval quality and performance metrics for
-    different search strategies and embedding methods.
-    """
+    def __init__(self, embedder, local: bool = True):
+        """
+        Initialize the RAG evaluator.
 
-    def __init__(self, embedder, qdrant):
-        """Initialize the RAG evaluator."""
+        Parameters
+        ----------
+        embedder : BaseEmbedder
+            The embedder to use for evaluation
+        local : bool
+            Whether to use local Qdrant instance
+        """
         self.embedder = embedder
-        self.qdrant = qdrant
+        self.qdrant = QdrantManager(local=local)
         self.collection_name = embedder.collection_name
 
     def execute_search(self, query: SearchQuery, limit: int = 5) -> SearchResult:
@@ -72,60 +81,82 @@ class RAGEvaluator:
         """
         start_time = time.time()
 
-        # Embed query
-        query_vector = self.embedder.embed(query.prompt)
-
         # Prepare filter conditions
-        must_conditions = []
+        filter_conditions = {}
         if query.date:
-            must_conditions.append(
-                FieldCondition(
-                    key='published_at',
-                    match=MatchValue(value=query.date)
-                )
-            )
+            filter_conditions['date'] = query.date
         if query.section:
-            must_conditions.append(
-                FieldCondition(
-                    key='section',
-                    match=MatchValue(value=query.section)
-                )
-            )
+            filter_conditions['section'] = query.section
 
-        # Execute search
-        results = self.qdrant.search(
-            collection_name=self.collection_name,
-            query_vector=query_vector,
-            query_filter=Filter(must=must_conditions) if must_conditions else None,
-            limit=limit
-        )
+        # Execute appropriate search based on query type
+        if query.prompt and query.keywords:
+            # Combined semantic and keyword search
+            query_vector = self.embedder.embed(query.prompt)
+            results = self.qdrant.search(
+                collection_name=self.collection_name,
+                query_vector=query_vector,
+                filter_conditions=filter_conditions,
+                keywords=query.keywords,
+                min_keyword_score=query.min_keyword_score,
+                limit=limit
+            )
+        elif query.prompt:
+            # Semantic search only
+            query_vector = self.embedder.embed(query.prompt)
+            results = self.qdrant.search(
+                collection_name=self.collection_name,
+                query_vector=query_vector,
+                filter_conditions=filter_conditions,
+                limit=limit
+            )
+        else:
+            # Keyword search only
+            results = self.qdrant.search_by_keywords(
+                collection_name=self.collection_name,
+                keywords=query.keywords,
+                min_keyword_score=query.min_keyword_score,
+                filter_conditions=filter_conditions,
+                limit=limit
+            )
 
         execution_time = time.time() - start_time
 
-        # Format results
-        formatted_results = [
-            {
-                'id': hit.id,
-                'score': hit.score,
-                'original_id': hit.payload.get('original_id'),
-                'title': hit.payload.get('title'),
-                'section': hit.payload.get('section'),
-                'published_at': hit.payload.get('published_at'),
-                'newspaper': hit.payload.get('newspaper')
-            }
-            for hit in results
-        ]
+        return SearchResult(query=query, results=results, execution_time=execution_time)
 
-        return SearchResult(
-            query=query,
-            results=formatted_results,
-            execution_time=execution_time
-        )
+    def calculate_keyword_metrics(
+        self,
+        retrieved_keywords: Set[str],
+        relevant_keywords: Set[str]
+    ) -> Tuple[float, float, float]:
+        """
+        Calculate precision, recall, and F1 score for keyword retrieval.
+
+        Parameters
+        ----------
+        retrieved_keywords : Set[str]
+            Set of keywords retrieved by the search
+        relevant_keywords : Set[str]
+            Set of relevant keywords for the query
+
+        Returns
+        -------
+        Tuple[float, float, float]
+            Precision, recall, and F1 scores
+        """
+        if not relevant_keywords:
+            return 0.0, 0.0, 0.0
+
+        intersection = len(retrieved_keywords & relevant_keywords)
+        precision = intersection / len(retrieved_keywords) if retrieved_keywords else 0
+        recall = intersection / len(relevant_keywords)
+        f1 = 2 * (precision * recall) / (precision + recall) if (precision + recall) > 0 else 0
+
+        return precision, recall, f1
 
     def evaluate_queries(
         self,
         queries: List[SearchQuery],
-        relevant_docs: Dict[str, List[str]],
+        relevant_docs: Dict[str, Dict[str, Any]],
         k: int = 5
     ) -> EvaluationMetrics:
         """
@@ -135,8 +166,8 @@ class RAGEvaluator:
         ----------
         queries : List[SearchQuery]
             List of queries to evaluate
-        relevant_docs : Dict[str, List[str]]
-            Dictionary mapping query prompts to lists of relevant document IDs
+        relevant_docs : Dict[str, Dict[str, Any]]
+            Dictionary mapping query prompts to relevant document info
         k : int, optional
             Number of results to consider for metrics
 
@@ -149,40 +180,51 @@ class RAGEvaluator:
         precision_scores = []
         recall_scores = []
         ndcg_scores = []
+        keyword_precision_scores = []
+        keyword_recall_scores = []
+        keyword_f1_scores = []
 
         for query in queries:
             # Execute search
             result = self.execute_search(query, limit=k)
             execution_times.append(result.execution_time)
 
-            # Get retrieved doc IDs
-            retrieved_ids = [str(r.get('original_id')) for r in result.results]
+            # Get relevant info for this query
+            relevant_info = relevant_docs.get(query.prompt or '', {})
+            relevant_ids = set(relevant_info.get('doc_ids', []))
+            relevant_keywords = set(relevant_info.get('keywords', []))
 
-            # Get relevant docs for this query
-            relevant = relevant_docs.get(query.prompt, [])
+            # Get retrieved info
+            retrieved_ids = {str(r['original_id']) for r in result.results}
+            retrieved_keywords = {kw for r in result.results for kw, _ in r['keywords']}
 
-            # Calculate precision and recall
-            relevant_set = set(relevant)
-            retrieved_set = set(retrieved_ids)
-
-            intersection = len(relevant_set & retrieved_set)
-
+            # Calculate document-level metrics
+            intersection = len(retrieved_ids & relevant_ids)
             precision = intersection / len(retrieved_ids) if retrieved_ids else 0
-            recall = intersection / len(relevant) if relevant else 0
+            recall = intersection / len(relevant_ids) if relevant_ids else 0
 
             precision_scores.append(precision)
             recall_scores.append(recall)
 
             # Calculate NDCG
-            relevance_scores = [1 if doc_id in relevant_set else 0 for doc_id in retrieved_ids]
-            ideal_scores = [1] * len(relevant_set) + [0] * (k - len(relevant_set))
+            relevance_scores = [1 if str(r['original_id']) in relevant_ids else 0 for r in result.results]
+            ideal_scores = [1] * len(relevant_ids) + [0] * (k - len(relevant_ids))
 
             try:
                 ndcg = ndcg_score([ideal_scores], [relevance_scores])
-            except Exception:
-                ndcg = 0.0  # Handle cases where ndcg_score fails (e.g., all zeros)
+            except ValueError:
+                ndcg = 0.0
 
             ndcg_scores.append(ndcg)
+
+            # Calculate keyword metrics
+            kw_precision, kw_recall, kw_f1 = self.calculate_keyword_metrics(
+                retrieved_keywords,
+                relevant_keywords
+            )
+            keyword_precision_scores.append(kw_precision)
+            keyword_recall_scores.append(kw_recall)
+            keyword_f1_scores.append(kw_f1)
 
         # Calculate mean metrics
         mean_execution_time = np.mean(execution_times)
@@ -191,6 +233,9 @@ class RAGEvaluator:
             precision=np.mean(precision_scores),
             recall=np.mean(recall_scores),
             ndcg=np.mean(ndcg_scores),
+            keyword_precision=np.mean(keyword_precision_scores),
+            keyword_recall=np.mean(keyword_recall_scores),
+            keyword_f1=np.mean(keyword_f1_scores),
             mean_execution_time=mean_execution_time,
             queries_per_second=1.0 / mean_execution_time if mean_execution_time > 0 else 0.0
         )
@@ -198,7 +243,7 @@ class RAGEvaluator:
     def generate_evaluation_report(
         self,
         test_queries: List[SearchQuery],
-        relevant_docs: Dict[str, List[str]],
+        relevant_docs: Dict[str, Dict[str, Any]],
         k: int = 5
     ) -> Dict[str, Any]:
         """
@@ -207,8 +252,8 @@ class RAGEvaluator:
         Parameters
         ----------
         test_queries : List[SearchQuery]
-            Test queries to evaluate
-        relevant_docs : Dict[str, List[str]]
+            List of queries to evaluate
+        relevant_docs : Dict[str, Dict[str, Any]]
             Dictionary of relevant documents for each query
         k : int, optional
             Number of results to consider
@@ -216,7 +261,7 @@ class RAGEvaluator:
         Returns
         -------
         Dict[str, Any]
-            Evaluation report with metrics and additional information
+            Evaluation report with metrics and statistics
         """
         metrics = self.evaluate_queries(test_queries, relevant_docs, k)
 
@@ -229,14 +274,18 @@ class RAGEvaluator:
                 'precision_at_k': metrics.precision,
                 'recall_at_k': metrics.recall,
                 'ndcg': metrics.ndcg,
+                'keyword_precision': metrics.keyword_precision,
+                'keyword_recall': metrics.keyword_recall,
+                'keyword_f1': metrics.keyword_f1,
                 'mean_execution_time': metrics.mean_execution_time,
                 'queries_per_second': metrics.queries_per_second
             },
             'query_categories': {
-                'date_and_section': len([q for q in test_queries if q.date and q.section]),
-                'date_only': len([q for q in test_queries if q.date and not q.section]),
-                'section_only': len([q for q in test_queries if q.section and not q.date]),
-                'no_filters': len([q for q in test_queries if not q.date and not q.section])
+                'semantic_only': len([q for q in test_queries if q.prompt and not q.keywords]),
+                'keyword_only': len([q for q in test_queries if q.keywords and not q.prompt]),
+                'combined': len([q for q in test_queries if q.prompt and q.keywords]),
+                'with_date': len([q for q in test_queries if q.date]),
+                'with_section': len([q for q in test_queries if q.section])
             },
             'timestamp': datetime.now().isoformat()
         }

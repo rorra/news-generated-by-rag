@@ -1,282 +1,2142 @@
 [
   {
-    "prompt": "d\u00f3lar MEP",
-    "date": "2024-11-18",
-    "section": "Econom\u00eda"
-  },
-  {
-    "prompt": "informaci\u00f3n de d\u00f3lar MEP",
-    "date": null,
-    "section": "Econom\u00eda"
-  },
-  {
-    "prompt": "informaci\u00f3n de pesquera china",
+    "prompt": "noticias sobre pymes caputo",
+    "keywords": [],
     "date": "2024-11-17",
-    "section": "Econom\u00eda"
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "pesquera china",
+    "prompt": null,
+    "keywords": [],
     "date": null,
-    "section": "Econom\u00eda"
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de pymes caputo",
+    "keywords": [],
+    "date": "2024-11-18",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "\u00faltimas noticias de pymes caputo",
-    "date": "2024-11-14",
-    "section": "Econom\u00eda"
-  },
-  {
-    "prompt": "noticias sobre pymes caputo",
-    "date": null,
-    "section": "Econom\u00eda"
-  },
-  {
-    "prompt": "actualidad sobre transferencia de emisiones",
+    "keywords": [],
     "date": "2024-11-17",
-    "section": "Econom\u00eda"
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "transferencia de emisiones",
+    "prompt": null,
+    "keywords": [],
     "date": null,
-    "section": "Econom\u00eda"
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "\u00faltimas noticias de apreciaci\u00f3n del peso",
+    "prompt": "actualidad sobre pymes caputo",
+    "keywords": [],
+    "date": "2024-11-13",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "pymes caputo",
+    "keywords": [],
     "date": "2024-11-16",
-    "section": "Econom\u00eda"
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "noticias sobre apreciaci\u00f3n del peso",
+    "keywords": [
+      "peso",
+      "d\u00f3lar"
+    ],
+    "date": "2024-11-15",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "peso",
+      "d\u00f3lar"
+    ],
     "date": null,
-    "section": "Econom\u00eda"
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "cambio climatico",
-    "date": "2024-11-18",
-    "section": "Internacional"
-  },
-  {
-    "prompt": "actualidad sobre cambio climatico",
-    "date": null,
-    "section": "Internacional"
-  },
-  {
-    "prompt": "reloj de oro del titanic",
+    "prompt": "informaci\u00f3n de apreciaci\u00f3n del peso",
+    "keywords": [
+      "peso",
+      "d\u00f3lar"
+    ],
     "date": "2024-11-14",
-    "section": "Internacional"
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "informaci\u00f3n de reloj de oro del titanic",
+    "prompt": null,
+    "keywords": [
+      "peso",
+      "d\u00f3lar"
+    ],
     "date": null,
-    "section": "Internacional"
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "\u00faltimas noticias de seguridad social en estados unidos",
+    "prompt": "\u00faltimas noticias de apreciaci\u00f3n del peso",
+    "keywords": [
+      "peso",
+      "d\u00f3lar"
+    ],
+    "date": "2024-11-12",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "peso",
+      "d\u00f3lar"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre apreciaci\u00f3n del peso",
+    "keywords": [
+      "peso",
+      "d\u00f3lar"
+    ],
+    "date": "2024-11-17",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "peso",
+      "d\u00f3lar"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "apreciaci\u00f3n del peso",
+    "keywords": [
+      "peso",
+      "d\u00f3lar"
+    ],
+    "date": "2024-11-16",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "peso",
+      "d\u00f3lar"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre pesquera china",
+    "keywords": [
+      "china"
+    ],
     "date": "2024-11-18",
-    "section": "Internacional"
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "china"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de pesquera china",
+    "keywords": [
+      "china"
+    ],
+    "date": "2024-11-14",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "china"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de pesquera china",
+    "keywords": [
+      "china"
+    ],
+    "date": "2024-11-15",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "china"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre pesquera china",
+    "keywords": [
+      "china"
+    ],
+    "date": "2024-11-12",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "china"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "pesquera china",
+    "keywords": [
+      "china"
+    ],
+    "date": "2024-11-15",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "china"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre d\u00f3lar MEP",
+    "keywords": [
+      "d\u00f3lar"
+    ],
+    "date": "2024-11-14",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "d\u00f3lar"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de d\u00f3lar MEP",
+    "keywords": [
+      "d\u00f3lar"
+    ],
+    "date": "2024-11-17",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "d\u00f3lar"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de d\u00f3lar MEP",
+    "keywords": [
+      "d\u00f3lar"
+    ],
+    "date": "2024-11-14",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "d\u00f3lar"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre d\u00f3lar MEP",
+    "keywords": [
+      "d\u00f3lar"
+    ],
+    "date": "2024-11-16",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "d\u00f3lar"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "d\u00f3lar MEP",
+    "keywords": [
+      "d\u00f3lar"
+    ],
+    "date": "2024-11-14",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "d\u00f3lar"
+    ],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre transferencia de emisiones",
+    "keywords": [],
+    "date": "2024-11-14",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de transferencia de emisiones",
+    "keywords": [],
+    "date": "2024-11-13",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de transferencia de emisiones",
+    "keywords": [],
+    "date": "2024-11-12",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre transferencia de emisiones",
+    "keywords": [],
+    "date": "2024-11-15",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "transferencia de emisiones",
+    "keywords": [],
+    "date": "2024-11-12",
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Econom\u00eda",
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "noticias sobre seguridad social en estados unidos",
+    "keywords": [],
+    "date": "2024-11-16",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
     "date": null,
-    "section": "Internacional"
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de seguridad social en estados unidos",
+    "keywords": [],
+    "date": "2024-11-14",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de seguridad social en estados unidos",
+    "keywords": [],
+    "date": "2024-11-18",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre seguridad social en estados unidos",
+    "keywords": [],
+    "date": "2024-11-15",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "seguridad social en estados unidos",
+    "keywords": [],
+    "date": "2024-11-15",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre donald trump",
+    "keywords": [
+      "trump"
+    ],
+    "date": "2024-11-14",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "trump"
+    ],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de donald trump",
+    "keywords": [
+      "trump"
+    ],
+    "date": "2024-11-14",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "trump"
+    ],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de donald trump",
+    "keywords": [
+      "trump"
+    ],
+    "date": "2024-11-13",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "trump"
+    ],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre donald trump",
+    "keywords": [
+      "trump"
+    ],
+    "date": "2024-11-12",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "trump"
+    ],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "donald trump",
+    "keywords": [
+      "trump"
+    ],
+    "date": "2024-11-12",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "trump"
+    ],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "noticias sobre g20 brasil",
-    "date": "2024-11-13",
-    "section": "Internacional"
+    "keywords": [
+      "g20",
+      "brasil",
+      "cumbre",
+      "lula"
+    ],
+    "date": "2024-11-18",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "g20",
+      "brasil",
+      "cumbre",
+      "lula"
+    ],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "informaci\u00f3n de g20 brasil",
-    "date": null,
-    "section": "Internacional"
-  },
-  {
-    "prompt": "donald trumpt",
+    "keywords": [
+      "g20",
+      "brasil",
+      "cumbre",
+      "lula"
+    ],
     "date": "2024-11-17",
-    "section": "Internacional"
+    "section": "Internacional",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "\u00faltimas noticias de donald trumpt",
+    "prompt": null,
+    "keywords": [
+      "g20",
+      "brasil",
+      "cumbre",
+      "lula"
+    ],
     "date": null,
-    "section": "Internacional"
+    "section": "Internacional",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "congreso nacional",
-    "date": "2024-11-15",
-    "section": "Pol\u00edtica"
+    "prompt": "\u00faltimas noticias de g20 brasil",
+    "keywords": [
+      "g20",
+      "brasil",
+      "cumbre",
+      "lula"
+    ],
+    "date": "2024-11-14",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "congreso nacional",
+    "prompt": null,
+    "keywords": [
+      "g20",
+      "brasil",
+      "cumbre",
+      "lula"
+    ],
     "date": null,
-    "section": "Pol\u00edtica"
+    "section": "Internacional",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "noticias sobre Emanuel Macron",
-    "date": "2024-11-13",
-    "section": "Pol\u00edtica"
-  },
-  {
-    "prompt": "Emanuel Macron",
-    "date": null,
-    "section": "Pol\u00edtica"
-  },
-  {
-    "prompt": "kirchnerismo",
-    "date": "2024-11-16",
-    "section": "Pol\u00edtica"
-  },
-  {
-    "prompt": "actualidad sobre kirchnerismo",
-    "date": null,
-    "section": "Pol\u00edtica"
-  },
-  {
-    "prompt": "\u00faltimas noticias de Estados Unidos",
+    "prompt": "actualidad sobre g20 brasil",
+    "keywords": [
+      "g20",
+      "brasil",
+      "cumbre",
+      "lula"
+    ],
     "date": "2024-11-18",
-    "section": "Pol\u00edtica"
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "g20",
+      "brasil",
+      "cumbre",
+      "lula"
+    ],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "g20 brasil",
+    "keywords": [
+      "g20",
+      "brasil",
+      "cumbre",
+      "lula"
+    ],
+    "date": "2024-11-16",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "g20",
+      "brasil",
+      "cumbre",
+      "lula"
+    ],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre reloj de oro del titanic",
+    "keywords": [],
+    "date": "2024-11-15",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de reloj de oro del titanic",
+    "keywords": [],
+    "date": "2024-11-15",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de reloj de oro del titanic",
+    "keywords": [],
+    "date": "2024-11-15",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre reloj de oro del titanic",
+    "keywords": [],
+    "date": "2024-11-18",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "reloj de oro del titanic",
+    "keywords": [],
+    "date": "2024-11-17",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre cambio clim\u00e1tico",
+    "keywords": [],
+    "date": "2024-11-16",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de cambio clim\u00e1tico",
+    "keywords": [],
+    "date": "2024-11-12",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de cambio clim\u00e1tico",
+    "keywords": [],
+    "date": "2024-11-13",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre cambio clim\u00e1tico",
+    "keywords": [],
+    "date": "2024-11-12",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "cambio clim\u00e1tico",
+    "keywords": [],
+    "date": "2024-11-14",
+    "section": "Internacional",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Internacional",
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "noticias sobre Estados Unidos",
-    "date": null,
-    "section": "Pol\u00edtica"
-  },
-  {
-    "prompt": "noticias sobre Cristina Kirchner",
+    "keywords": [
+      "pol\u00edtica"
+    ],
     "date": "2024-11-18",
-    "section": "Pol\u00edtica"
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "pol\u00edtica"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de Estados Unidos",
+    "keywords": [
+      "pol\u00edtica"
+    ],
+    "date": "2024-11-16",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "pol\u00edtica"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de Estados Unidos",
+    "keywords": [
+      "pol\u00edtica"
+    ],
+    "date": "2024-11-16",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "pol\u00edtica"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre Estados Unidos",
+    "keywords": [
+      "pol\u00edtica"
+    ],
+    "date": "2024-11-13",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "pol\u00edtica"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "Estados Unidos",
+    "keywords": [
+      "pol\u00edtica"
+    ],
+    "date": "2024-11-13",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "pol\u00edtica"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre Emanuel Macron",
+    "keywords": [
+      "francia",
+      "presidente"
+    ],
+    "date": "2024-11-16",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "francia",
+      "presidente"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de Emanuel Macron",
+    "keywords": [
+      "francia",
+      "presidente"
+    ],
+    "date": "2024-11-13",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "francia",
+      "presidente"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de Emanuel Macron",
+    "keywords": [
+      "francia",
+      "presidente"
+    ],
+    "date": "2024-11-15",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "francia",
+      "presidente"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre Emanuel Macron",
+    "keywords": [
+      "francia",
+      "presidente"
+    ],
+    "date": "2024-11-12",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "francia",
+      "presidente"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "Emanuel Macron",
+    "keywords": [
+      "francia",
+      "presidente"
+    ],
+    "date": "2024-11-15",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "francia",
+      "presidente"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre congreso nacional",
+    "keywords": [
+      "congreso"
+    ],
+    "date": "2024-11-12",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "congreso"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de congreso nacional",
+    "keywords": [
+      "congreso"
+    ],
+    "date": "2024-11-15",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "congreso"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de congreso nacional",
+    "keywords": [
+      "congreso"
+    ],
+    "date": "2024-11-16",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "congreso"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre congreso nacional",
+    "keywords": [
+      "congreso"
+    ],
+    "date": "2024-11-12",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "congreso"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "congreso nacional",
+    "keywords": [
+      "congreso"
+    ],
+    "date": "2024-11-12",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "congreso"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre kirchnerismo",
+    "keywords": [
+      "kirchner",
+      "pol\u00edtica"
+    ],
+    "date": "2024-11-17",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "kirchner",
+      "pol\u00edtica"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de kirchnerismo",
+    "keywords": [
+      "kirchner",
+      "pol\u00edtica"
+    ],
+    "date": "2024-11-13",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "kirchner",
+      "pol\u00edtica"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de kirchnerismo",
+    "keywords": [
+      "kirchner",
+      "pol\u00edtica"
+    ],
+    "date": "2024-11-15",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "kirchner",
+      "pol\u00edtica"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre kirchnerismo",
+    "keywords": [
+      "kirchner",
+      "pol\u00edtica"
+    ],
+    "date": "2024-11-18",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "kirchner",
+      "pol\u00edtica"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "kirchnerismo",
+    "keywords": [
+      "kirchner",
+      "pol\u00edtica"
+    ],
+    "date": "2024-11-15",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "kirchner",
+      "pol\u00edtica"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "noticias sobre Cristina Kirchner",
-    "date": null,
-    "section": "Pol\u00edtica"
+    "keywords": [
+      "cristina",
+      "kirchner"
+    ],
+    "date": "2024-11-14",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "informaci\u00f3n de Lionsgate",
+    "prompt": null,
+    "keywords": [
+      "cristina",
+      "kirchner"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de Cristina Kirchner",
+    "keywords": [
+      "cristina",
+      "kirchner"
+    ],
+    "date": "2024-11-14",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "cristina",
+      "kirchner"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de Cristina Kirchner",
+    "keywords": [
+      "cristina",
+      "kirchner"
+    ],
+    "date": "2024-11-17",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "cristina",
+      "kirchner"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre Cristina Kirchner",
+    "keywords": [
+      "cristina",
+      "kirchner"
+    ],
     "date": "2024-11-15",
-    "section": "Sociedad"
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "informaci\u00f3n de Lionsgate",
+    "prompt": null,
+    "keywords": [
+      "cristina",
+      "kirchner"
+    ],
     "date": null,
-    "section": "Sociedad"
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "Cristina Kirchner",
+    "keywords": [
+      "cristina",
+      "kirchner"
+    ],
+    "date": "2024-11-18",
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "cristina",
+      "kirchner"
+    ],
+    "date": null,
+    "section": "Pol\u00edtica",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre hormigas voladoras",
+    "keywords": [],
+    "date": "2024-11-15",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de hormigas voladoras",
+    "keywords": [],
+    "date": "2024-11-14",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de hormigas voladoras",
+    "keywords": [],
+    "date": "2024-11-15",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre hormigas voladoras",
+    "keywords": [],
+    "date": "2024-11-15",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "hormigas voladoras",
+    "keywords": [],
+    "date": "2024-11-12",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre Andrea Giunta",
+    "keywords": [
+      "arte",
+      "museo"
+    ],
+    "date": "2024-11-17",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "arte",
+      "museo"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de Andrea Giunta",
+    "keywords": [
+      "arte",
+      "museo"
+    ],
+    "date": "2024-11-13",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "arte",
+      "museo"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de Andrea Giunta",
+    "keywords": [
+      "arte",
+      "museo"
+    ],
+    "date": "2024-11-17",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "arte",
+      "museo"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre Andrea Giunta",
+    "keywords": [
+      "arte",
+      "museo"
+    ],
+    "date": "2024-11-17",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "arte",
+      "museo"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "Andrea Giunta",
+    "keywords": [
+      "arte",
+      "museo"
+    ],
+    "date": "2024-11-13",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "arte",
+      "museo"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "noticias sobre Efem\u00e9rides",
-    "date": "2024-11-12",
-    "section": "Sociedad"
+    "keywords": [
+      "historia"
+    ],
+    "date": "2024-11-17",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "historia"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de Efem\u00e9rides",
+    "keywords": [
+      "historia"
+    ],
+    "date": "2024-11-15",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "historia"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de Efem\u00e9rides",
+    "keywords": [
+      "historia"
+    ],
+    "date": "2024-11-13",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "historia"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre Efem\u00e9rides",
+    "keywords": [
+      "historia"
+    ],
+    "date": "2024-11-18",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "historia"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "Efem\u00e9rides",
+    "keywords": [
+      "historia"
+    ],
+    "date": "2024-11-15",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "historia"
+    ],
     "date": null,
-    "section": "Sociedad"
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "informaci\u00f3n de hormigas voladoras",
-    "date": "2024-11-13",
-    "section": "Sociedad"
+    "prompt": "noticias sobre clima",
+    "keywords": [],
+    "date": "2024-11-18",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "informaci\u00f3n de hormigas voladoras",
+    "prompt": null,
+    "keywords": [],
     "date": null,
-    "section": "Sociedad"
-  },
-  {
-    "prompt": "clima",
-    "date": "2024-11-12",
-    "section": "Sociedad"
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "informaci\u00f3n de clima",
-    "date": null,
-    "section": "Sociedad"
+    "keywords": [],
+    "date": "2024-11-16",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "informaci\u00f3n de Andrea Giunta",
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de clima",
+    "keywords": [],
+    "date": "2024-11-17",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre clima",
+    "keywords": [],
+    "date": "2024-11-16",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "clima",
+    "keywords": [],
+    "date": "2024-11-15",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre Lionsgate",
+    "keywords": [
+      "cine",
+      "pel\u00edcula"
+    ],
     "date": "2024-11-12",
-    "section": "Sociedad"
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "informaci\u00f3n de Andrea Giunta",
+    "prompt": null,
+    "keywords": [
+      "cine",
+      "pel\u00edcula"
+    ],
     "date": null,
-    "section": "Sociedad"
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de Lionsgate",
+    "keywords": [
+      "cine",
+      "pel\u00edcula"
+    ],
+    "date": "2024-11-12",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "cine",
+      "pel\u00edcula"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de Lionsgate",
+    "keywords": [
+      "cine",
+      "pel\u00edcula"
+    ],
+    "date": "2024-11-15",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "cine",
+      "pel\u00edcula"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre Lionsgate",
+    "keywords": [
+      "cine",
+      "pel\u00edcula"
+    ],
+    "date": "2024-11-16",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "cine",
+      "pel\u00edcula"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "Lionsgate",
+    "keywords": [
+      "cine",
+      "pel\u00edcula"
+    ],
+    "date": "2024-11-15",
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "cine",
+      "pel\u00edcula"
+    ],
+    "date": null,
+    "section": "Sociedad",
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre crisis econ\u00f3mica",
+    "keywords": [
+      "crisis",
+      "inflaci\u00f3n"
+    ],
+    "date": "2024-11-15",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "crisis",
+      "inflaci\u00f3n"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "informaci\u00f3n de crisis econ\u00f3mica",
-    "date": "2024-11-12",
-    "section": null
+    "keywords": [
+      "crisis",
+      "inflaci\u00f3n"
+    ],
+    "date": "2024-11-15",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "crisis",
+      "inflaci\u00f3n"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de crisis econ\u00f3mica",
+    "keywords": [
+      "crisis",
+      "inflaci\u00f3n"
+    ],
+    "date": "2024-11-14",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "crisis",
+      "inflaci\u00f3n"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "actualidad sobre crisis econ\u00f3mica",
-    "date": null,
-    "section": null
+    "keywords": [
+      "crisis",
+      "inflaci\u00f3n"
+    ],
+    "date": "2024-11-13",
+    "section": null,
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "actualidad sobre presupuesto nacional",
-    "date": "2024-11-13",
-    "section": null
+    "prompt": null,
+    "keywords": [
+      "crisis",
+      "inflaci\u00f3n"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "crisis econ\u00f3mica",
+    "keywords": [
+      "crisis",
+      "inflaci\u00f3n"
+    ],
+    "date": "2024-11-14",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "crisis",
+      "inflaci\u00f3n"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "noticias sobre presupuesto nacional",
+    "keywords": [
+      "presupuesto",
+      "congreso"
+    ],
+    "date": "2024-11-17",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "presupuesto",
+      "congreso"
+    ],
     "date": null,
-    "section": null
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de presupuesto nacional",
+    "keywords": [
+      "presupuesto",
+      "congreso"
+    ],
+    "date": "2024-11-18",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "presupuesto",
+      "congreso"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de presupuesto nacional",
+    "keywords": [
+      "presupuesto",
+      "congreso"
+    ],
+    "date": "2024-11-16",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "presupuesto",
+      "congreso"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "actualidad sobre presupuesto nacional",
+    "keywords": [
+      "presupuesto",
+      "congreso"
+    ],
+    "date": "2024-11-13",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "presupuesto",
+      "congreso"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "presupuesto nacional",
+    "keywords": [
+      "presupuesto",
+      "congreso"
+    ],
+    "date": "2024-11-14",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "presupuesto",
+      "congreso"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre pol\u00edticas p\u00fablicas",
+    "keywords": [
+      "pol\u00edtica",
+      "gobierno"
+    ],
+    "date": "2024-11-18",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "pol\u00edtica",
+      "gobierno"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "informaci\u00f3n de pol\u00edticas p\u00fablicas",
-    "date": "2024-11-15",
-    "section": null
+    "keywords": [
+      "pol\u00edtica",
+      "gobierno"
+    ],
+    "date": "2024-11-14",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "pol\u00edtica",
+      "gobierno"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "\u00faltimas noticias de pol\u00edticas p\u00fablicas",
+    "keywords": [
+      "pol\u00edtica",
+      "gobierno"
+    ],
+    "date": "2024-11-17",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "pol\u00edtica",
+      "gobierno"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "actualidad sobre pol\u00edticas p\u00fablicas",
+    "keywords": [
+      "pol\u00edtica",
+      "gobierno"
+    ],
+    "date": "2024-11-13",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "pol\u00edtica",
+      "gobierno"
+    ],
     "date": null,
-    "section": null
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "pol\u00edticas p\u00fablicas",
+    "keywords": [
+      "pol\u00edtica",
+      "gobierno"
+    ],
+    "date": "2024-11-16",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "pol\u00edtica",
+      "gobierno"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "noticias sobre impacto social",
+    "keywords": [
+      "social"
+    ],
+    "date": "2024-11-15",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "social"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": "informaci\u00f3n de impacto social",
+    "keywords": [
+      "social"
+    ],
+    "date": "2024-11-15",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "social"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "\u00faltimas noticias de impacto social",
-    "date": "2024-11-17",
-    "section": null
+    "keywords": [
+      "social"
+    ],
+    "date": "2024-11-14",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "social"
+    ],
+    "date": null,
+    "section": null,
+    "min_keyword_score": 0.1
   },
   {
     "prompt": "actualidad sobre impacto social",
+    "keywords": [
+      "social"
+    ],
+    "date": "2024-11-14",
+    "section": null,
+    "min_keyword_score": 0.1
+  },
+  {
+    "prompt": null,
+    "keywords": [
+      "social"
+    ],
     "date": null,
-    "section": null
+    "section": null,
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "\u00faltimas noticias de desarrollo econ\u00f3mico",
-    "date": "2024-11-17",
-    "section": null
+    "prompt": "impacto social",
+    "keywords": [
+      "social"
+    ],
+    "date": "2024-11-18",
+    "section": null,
+    "min_keyword_score": 0.1
   },
   {
-    "prompt": "desarrollo econ\u00f3mico",
+    "prompt": null,
+    "keywords": [
+      "social"
+    ],
     "date": null,
-    "section": null
-  },
-  {
-    "prompt": "noticias sobre medidas gubernamentales",
-    "date": "2024-11-16",
-    "section": null
-  },
-  {
-    "prompt": "actualidad sobre medidas gubernamentales",
-    "date": null,
-    "section": null
-  },
-  {
-    "prompt": "noticias sobre sector privado",
-    "date": "2024-11-13",
-    "section": null
-  },
-  {
-    "prompt": "\u00faltimas noticias de sector privado",
-    "date": null,
-    "section": null
-  },
-  {
-    "prompt": "informaci\u00f3n de reforma estatal",
-    "date": "2024-11-12",
-    "section": null
-  },
-  {
-    "prompt": "informaci\u00f3n de reforma estatal",
-    "date": null,
-    "section": null
+    "section": null,
+    "min_keyword_score": 0.1
   }
 ]
