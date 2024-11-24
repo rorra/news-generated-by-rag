@@ -34,11 +34,25 @@ class Pagina12Scraper(BaseScraper):
         Visit each article page and extract the detailed content and publication datetime.
         """
         soup = self.get_soup(article_url)
+        content = ''
+        title = ''
 
-        # Parse title and content
-        title = soup.find('h1').get_text(strip=True)
+        # Parse title
+        header_div = soup.find('div', class_='article-header')
+        if header_div:
+            title = header_div.find('h1').get_text(strip=True)
+            # Maintain both subheadings
+            subencabezados = header_div.find_all('h2')
+            for subencabezado in subencabezados:
+                text = subencabezado.get_text(strip=True)
+                content += text + (' ' if text[-1]=='.' else '. ')
+
+        # parse content
         content_div = soup.find('div', class_='article-main-content')
-        content = self.clean_and_get_text(content_div)
+        if content_div is None:
+            return None
+
+        content += self.clean_and_get_text(content_div)
 
         # Extract the publication datetime
         published_at = self.extract_published_datetime(soup, article_url)
