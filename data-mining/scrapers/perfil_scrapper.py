@@ -40,10 +40,33 @@ class Perfil(BaseScraper):
         """
         soup = self.get_soup(article_url)
 
-        # Parse title and content
-        title = soup.find('h1', class_='article__title').get_text(strip=True)
+        content = ''
+
+        # Parse title
+        title = soup.find('h1', class_='article__title')
+        if title:
+            title = title.get_text(strip=True)
+
+        headline = soup.find('h2', class_='article__headline')
+        if headline:
+            headline = headline.get_text(strip=True)
+            content += headline + ('. ' if headline[-1]!='.' else ' ')
+
+        # Parse content
         content_div = soup.find('div', class_='article__content')
-        content = self.clean_and_get_text(content_div)
+
+        # Get unwanted tags and classes
+        unwanted_tags = ['p', 'div']
+        unwanted_classes = ['destacadoNota', 'iframeContainer', 'subscription', 'pw-box']
+        unwanted_elements = content_div.findAll(name=unwanted_tags, class_=unwanted_classes)
+
+
+        for element in content_div.children:
+            if element in unwanted_elements: # Skip unwanted elements
+                continue
+
+            if element.name is not None:
+                content += self.clean_and_get_text(element) + ' '
 
         # Extract the publication datetime
         published_at = self.extract_published_datetime(soup, article_url)
