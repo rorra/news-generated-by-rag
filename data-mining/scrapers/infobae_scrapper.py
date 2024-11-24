@@ -84,7 +84,11 @@ class Infobae(BaseScraper):
         try:
             meta_tag = soup.find('meta', property='article:published_time')
             datetime_str = meta_tag['content']
-            published_time = datetime.fromisoformat(datetime_str.replace('Z', '+00:00'))
+
+            # Account for incorect format of 1000th of  a second
+            datetime_str.split('.')[0]+"."+datetime_str.split('.')[1][:-1].ljust(3, '0')+"+00:00"
+
+            published_time = datetime.fromisoformat(datetime_str)
             return published_time
         except Exception as e:
             raise e
