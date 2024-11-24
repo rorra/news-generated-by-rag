@@ -86,7 +86,7 @@ class Infobae(BaseScraper):
             datetime_str = meta_tag['content']
 
             # Account for incorect format of 1000th of  a second
-            datetime_str.split('.')[0]+"."+datetime_str.split('.')[1][:-1].ljust(3, '0')+"+00:00"
+            datetime_str = datetime_str.split('.')[0]+"."+datetime_str.split('.')[1][:-1].ljust(3, '0')+"+00:00"
 
             published_time = datetime.fromisoformat(datetime_str)
             return published_time
