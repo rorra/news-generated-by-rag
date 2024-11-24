@@ -38,17 +38,34 @@ class TN(BaseScraper):
         Visit each article page and extract the detailed content and publication datetime.
         """
         soup = self.get_soup(article_url)
-
+        content = ''
         # Skip live articles
         if "envivo/24hs/" in article_url:
             return None
 
         # Parse title and content
         title = soup.find('h1', class_='article__title').get_text(strip=True)
+
+        # Extract the subheading if it exists
+        dropline_div = soup.find('h2', class_='article__dropline')
+        if dropline_div:
+            content += self.clean_and_get_text(dropline_div)
+
+        # Extract the main content
         content_div = soup.find('div', class_='article__body')
         if content_div is None:
             return None
         content = self.clean_and_get_text(content_div)
+
+        # Iterate over the children of the content div to extract the text
+        for element in content_div.children:
+            # Ignore figure elements (Photo captions)
+            if element.name == 'figure':
+                continue
+            # Ignore "Leé también" paragraphs
+            if element.name == 'p' and 'Leé' in element.get_text():
+                continue
+            content += " " + self.clean_and_get_text(element)
 
         # Extract the publication datetime
         published_at = self.extract_published_datetime(soup, article_url)
