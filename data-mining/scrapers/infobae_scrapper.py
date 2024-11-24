@@ -40,12 +40,34 @@ class Infobae(BaseScraper):
         """
         soup = self.get_soup(article_url)
 
-        # Parse title and content
-        title = soup.find('h1', class_='article-headline').get_text(strip=True)
+        content = ''
+
+        # Find the title and subheadline
+        title = soup.find('h1', class_='article-headline')
+        if title:
+            title = title.get_text(strip=True)
+        subheadline = soup.find('h2', class_='article-subheadline')
+        if subheadline:
+            subheadline = subheadline.get_text(strip=True)
+            content += subheadline + ('. ' if subheadline[-1]!='.' else ' ')
+
+        # Find the main content div
         content_div = soup.find('div', class_='body-article')
         if not content_div:
             content_div = soup.find('div', class_='body-blogging-article')
-        content = self.clean_and_get_text(content_div)
+
+
+        # Get unwanted tags and classes
+        unwanted_tags = ['p', 'div']
+        unwanted_classes = ['second-saved-buttons', 'visual__image',]
+        unwanted_elements = content_div.findAll(name=unwanted_tags, class_=unwanted_classes)
+
+        for element in content_div.children:
+            if element in unwanted_elements: # Skip unwanted elements
+                continue
+
+            if element.name is not None:
+                content += self.clean_and_get_text(element) + ' '
 
         # Extract the publication datetime
         published_at = self.extract_published_datetime(soup, article_url)
