@@ -44,15 +44,31 @@ class Pagina12Scraper(BaseScraper):
             # Maintain both subheadings
             subencabezados = header_div.find_all('h2')
             for subencabezado in subencabezados:
-                text = subencabezado.get_text(strip=True)
-                content += text + (' ' if text[-1]=='.' else '. ')
+                if subencabezado is not None:
+                    text = subencabezado.get_text(strip=True)
+                    if len(text) > 0:
+                        content += text + (' ' if text[-1]=='.' else '. ')
 
-        # parse content
-        content_div = soup.find('div', class_='article-main-content')
-        if content_div is None:
-            return None
 
-        content += self.clean_and_get_text(content_div)
+            # parse content
+            content_div = soup.find('div', class_='article-main-content')
+            if content_div is None:
+                print( None)
+
+            # Get unwanted tags and classes
+            unwanted_tags = ['div']
+            unwanted_classes = ['paywall', 'member-banner']
+            unwanted_elements = content_div.findAll(name=unwanted_tags, class_=unwanted_classes)
+
+            for el in unwanted_elements:
+                el.decompose()
+
+            for element in content_div.children:
+                if element in unwanted_elements: # Skip unwanted elements
+                    continue
+
+                if element.name is not None:
+                    content += self.clean_and_get_text(element) + ' '
 
         # Extract the publication datetime
         published_at = self.extract_published_datetime(soup, article_url)
