@@ -34,11 +34,41 @@ class Pagina12Scraper(BaseScraper):
         Visit each article page and extract the detailed content and publication datetime.
         """
         soup = self.get_soup(article_url)
+        content = ''
+        title = ''
 
-        # Parse title and content
-        title = soup.find('h1').get_text(strip=True)
-        content_div = soup.find('div', class_='article-main-content')
-        content = self.clean_and_get_text(content_div)
+        # Parse title
+        header_div = soup.find('div', class_='article-header')
+        if header_div:
+            title = header_div.find('h1').get_text(strip=True)
+            # Maintain both subheadings
+            subencabezados = header_div.find_all('h2')
+            for subencabezado in subencabezados:
+                if subencabezado is not None:
+                    text = subencabezado.get_text(strip=True)
+                    if len(text) > 0:
+                        content += text + (' ' if text[-1]=='.' else '. ')
+
+
+            # parse content
+            content_div = soup.find('div', class_='article-main-content')
+            if content_div is None:
+                print( None)
+
+            # Get unwanted tags and classes
+            unwanted_tags = ['div']
+            unwanted_classes = ['paywall', 'member-banner']
+            unwanted_elements = content_div.findAll(name=unwanted_tags, class_=unwanted_classes)
+
+            for el in unwanted_elements:
+                el.decompose()
+
+            for element in content_div.children:
+                if element in unwanted_elements: # Skip unwanted elements
+                    continue
+
+                if element.name is not None:
+                    content += self.clean_and_get_text(element) + ' '
 
         # Extract the publication datetime
         published_at = self.extract_published_datetime(soup, article_url)

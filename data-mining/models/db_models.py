@@ -23,6 +23,7 @@ class Section(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(100), nullable=False)
     articles = relationship("Article", back_populates="section")
+    generated_news = relationship("GeneratedNews", back_populates="section")  # Added relationship
 
     def __repr__(self):
         return f"<Section(id={self.id}, name='{self.name}')>"
@@ -84,7 +85,8 @@ class ProcessedArticle(Base):
         return f"<ProcessedArticle(id={self.id}, article_id={self.article_id})>"
 
     @classmethod
-    def from_article(cls, article: Article, processed_title: str, processed_content: str, keywords: str) -> "ProcessedArticle":
+    def from_article(cls, article: Article, processed_title: str, processed_content: str,
+                     keywords: str) -> "ProcessedArticle":
         """Create a ProcessedArticle instance from an original Article."""
         return cls(
             article_id=article.id,
@@ -93,3 +95,26 @@ class ProcessedArticle(Base):
             processed_content=processed_content,
             keywords=keywords
         )
+
+
+class GeneratedNews(Base):
+    """Model for storing generated news articles."""
+    __tablename__ = "generated_news"
+
+    id = Column(Integer, primary_key=True)
+    section_id = Column(Integer, ForeignKey("sections.id"), nullable=False)
+    title = Column(String(255), nullable=False)
+    body = Column(Text, nullable=False)
+    generated_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+    # Relationships
+    section = relationship("Section", back_populates="generated_news")
+
+    # Indexes
+    __table_args__ = (
+        Index("ix_generated_news_section_id", "section_id"),
+        Index("ix_generated_news_generated_at", "generated_at"),
+    )
+
+    def __repr__(self):
+        return f"<GeneratedNews(id={self.id}, section_id={self.section_id}, title='{self.title}')>"

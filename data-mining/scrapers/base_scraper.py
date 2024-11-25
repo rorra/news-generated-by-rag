@@ -1,5 +1,5 @@
 import requests
-from bs4 import BeautifulSoup, NavigableString, Tag
+from bs4 import BeautifulSoup, NavigableString, Tag, Comment
 from logger import logger
 from datetime import datetime
 import pytz
@@ -50,6 +50,8 @@ class BaseScraper:
 
         text = []
         for item in element.contents:
+            if isinstance(item, Comment):
+                continue
             if isinstance(item, NavigableString):
                 text.append(item.strip())
             elif isinstance(item, Tag):
