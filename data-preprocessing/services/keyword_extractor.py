@@ -7,6 +7,7 @@ import string
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+import torch
 from collections import defaultdict
 
 logging.set_verbosity_error()
@@ -17,8 +18,15 @@ class KeywordExtractor():
     """
     def __init__(self, model="dccuchile/bert-base-spanish-wwm-uncased"):
         print("Initializing KeywordExtractor...")
+
+        if torch.cuda.is_available():
+            device = 0
+        else:
+            device = -1
+
         self.nlp = spacy.load("es_core_news_sm")
-        self.pipeline = pipeline("feature-extraction", model=model, tokenizer=model, max_length=512, truncation=True, device=0)
+
+        self.pipeline = pipeline("feature-extraction", model=model, tokenizer=model, max_length=512, truncation=True, device=device)
 
         self.word_embedding_cache = {}
         self.vectorizer = TfidfVectorizer()
