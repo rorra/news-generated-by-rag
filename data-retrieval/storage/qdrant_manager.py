@@ -222,3 +222,37 @@ class QdrantManager:
             }
             for point in results
         ]
+
+    def get_vectors(
+        self,
+        collection_name: str,
+        ids: List[str]
+    ) -> List[dict]:
+        """Retrieve vectors for given IDs."""
+        points = self.client.retrieve(
+            collection_name=collection_name,
+            ids=list(map(int, ids)), # If ids are strings, convert to integers
+            with_vectors=True
+        )
+        return points
+
+    def search_similar(
+        self,
+        collection_name: str,
+        vector_id: str,
+        threshold: float = 0.75,
+        limit: int = 10
+    ) -> List[dict]:
+        """Search for similar vectors using a reference vector ID."""
+        # First get the reference vector
+        reference = self.get_vectors(collection_name, [vector_id])[0]
+
+        # Search using the reference vector
+        results = self.client.search(
+            collection_name=collection_name,
+            query_vector=reference.vector,
+            score_threshold=threshold,
+            limit=limit
+        )
+
+        return results

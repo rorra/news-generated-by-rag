@@ -1,0 +1,8 @@
+SQLAlchemy==2.0.35
+nltk==3.9.1
+spacy==3.8.2
+language-tool-python==2.8.1
+qdrant-client==1.12.1
+langchain @ git+https://github.com/rorra/langchain@master#egg=langchain&subdirectory=libs/langchain
+langchain-openai==0.2.9
+scikit-learn==1.5.2
