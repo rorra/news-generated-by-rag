@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ article.title }} - Noticias Argentina{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <nav aria-label="breadcrumb" class="mb-4">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('home') }}">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="{{ url_for('news_by_date', date=article.generated_at.date()) }}">{{
+                    article.generated_at.date()|format_date }}</a></li>
+                <li class="breadcrumb-item active">{{ article.section.name }}</li>
+            </ol>
+        </nav>
+
+        <article class="card">
+            <div class="card-body">
+                <h1 class="card-title mb-4">{{ article.title }}</h1>
+                <div class="text-muted mb-4">
+                    <small>
+                        {{ article.generated_at|format_date }} | {{ article.section.name }}
+                    </small>
+                </div>
+                <div class="card-text">
+                    {{ article.body|safe }}
+                </div>
+            </div>
+        </article>
+
+        <div class="mt-4 text-center">
+            <a href="{{ url_for('news_by_date', date=article.generated_at.date()) }}" class="btn btn-outline-dark">
+                ← Volver a las noticias del día
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

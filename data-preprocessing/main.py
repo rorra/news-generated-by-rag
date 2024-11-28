@@ -60,7 +60,7 @@ def create_preprocessor_pipeline() -> List[TextPreprocessor]:
         CaseNormalizer(),  # Convert to lowercase before normalization
         TextNormalizer(model='es_core_news_sm'),
         ContentCleaner(),
-        ParagraphSegmenter(language='spanish')
+        ParagraphSegmenter(language='spanish') # No really needed
     ]
 
 

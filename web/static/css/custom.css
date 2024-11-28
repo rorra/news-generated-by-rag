@@ -1,0 +1,41 @@
+/* Custom styles beyond Bootstrap */
+
+/* Make article text more readable */
+.card-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* Add some spacing between paragraphs in article body */
+.card-text p {
+    margin-bottom: 1.5rem;
+}
+
+/* Improve readability of article titles */
+.card-title {
+    line-height: 1.4;
+}
+
+/* Style for the date navigation dropdown */
+.dropdown-menu {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* Make footer stick to bottom */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Responsive font sizes for article titles */
+@media (max-width: 768px) {
+    h1.card-title {
+        font-size: 1.75rem;
+    }
+}

@@ -38,7 +38,6 @@ class BaseWriterAgent:
     def fetch_relevant_articles(self, title: str, section: str, date: str) -> List[Dict]:
         """Fetch relevant articles from Qdrant for RAG."""
         filter_conditions = {
-            'date': date,
             'section': section
         }
 
