@@ -49,21 +49,20 @@ class Infobae(BaseScraper):
         subheadline = soup.find('h2', class_='article-subheadline')
         if subheadline:
             subheadline = subheadline.get_text(strip=True)
-            content += subheadline + ('. ' if subheadline[-1]!='.' else ' ')
+            content += subheadline + ('. ' if subheadline[-1] != '.' else ' ')
 
         # Find the main content div
         content_div = soup.find('div', class_='body-article')
         if not content_div:
             content_div = soup.find('div', class_='body-blogging-article')
 
-
         # Get unwanted tags and classes
         unwanted_tags = ['p', 'div']
-        unwanted_classes = ['second-saved-buttons', 'visual__image',]
+        unwanted_classes = ['second-saved-buttons', 'visual__image', ]
         unwanted_elements = content_div.findAll(name=unwanted_tags, class_=unwanted_classes)
 
         for element in content_div.children:
-            if element in unwanted_elements: # Skip unwanted elements
+            if element in unwanted_elements:  # Skip unwanted elements
                 continue
 
             if element.name is not None:
@@ -85,12 +84,12 @@ class Infobae(BaseScraper):
             meta_tag = soup.find('meta', property='article:published_time')
             datetime_str = meta_tag['content']
 
-            # Account for incorect format of 1000th of  a second
-            datetime_str = datetime_str.split('.')[0]+"."+datetime_str.split('.')[1][:-1].ljust(3, '0')+"+00:00"
+            if '.' in datetime_str:
+                datetime_str = datetime_str.split('.')[0] + 'Z'
+            published_time = datetime.strptime(datetime_str, '%Y-%m-%dT%H:%M:%SZ')
 
-            published_time = datetime.fromisoformat(datetime_str)
             return published_time
         except Exception as e:
             raise e
             logger.warning(f"Couldn't find published time: {article_url}")
-            return None
+            return datetime.now()

@@ -37,13 +37,13 @@ class ElEconomistaScraper(BaseScraper):
         subheadline = soup.find('h2', class_='sufix-ficha')
         if subheadline:
             subheadline = subheadline.get_text(strip=True)
-            content += subheadline + ('. ' if subheadline[-1]!='.' else ' ')
+            if len(subheadline) > 0:
+                content += subheadline + ('. ' if subheadline[-1] != '.' else ' ')
 
         # # Find the main content div
         content_div = soup.find('article', class_='content')
         if not content_div:
             return None
-
 
         # # Get unwanted tags and classes
         unwanted_tags = ['figure', 'div', 'span', 'link']
@@ -51,7 +51,7 @@ class ElEconomistaScraper(BaseScraper):
         unwanted_elements = content_div.findAll(name=unwanted_tags, class_=unwanted_classes)
 
         for element in content_div.children:
-            if element in unwanted_elements: # Skip unwanted elements
+            if element in unwanted_elements:  # Skip unwanted elements
                 continue
             if element.name == 'link':  # Skip CSS link tags
                 continue

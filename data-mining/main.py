@@ -51,8 +51,8 @@ def run_scrapers():
     db_session = SessionLocal()
 
     scrapers = [
-        ElEconomistaScraper(),
         Infobae(),
+        ElEconomistaScraper(),
         Pagina12Scraper(),
         # Perfil(), # Perfil requires subscription
         TN(),
