@@ -115,6 +115,13 @@ class BaseWriterAgent:
             Artículo:"""
         )
 
+        # Print the prompt details for debugging
+        print("\n--- Prompt Debugging Information ---")
+        print("Title:", title)
+        print("Context:", context)
+        print("Style Prompt:", style_prompt)
+        print("--- End of Prompt Debugging ---\n")
+
         chain = prompt | self.llm
 
         return chain.invoke({
