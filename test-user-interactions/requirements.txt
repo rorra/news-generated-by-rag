@@ -3,3 +3,11 @@ langchain
 langchain-openai
 langchain-community
 openai
+sqlalchemy==2.0.36
+mysql-connector-python==9.1.0
+transformers==4.46.2
+sentence-transformers==3.3.0
+scikit-learn==1.5.2
+rank_bm25==0.2.2
+qdrant-client==1.12.1
+tqdm==4.67.0

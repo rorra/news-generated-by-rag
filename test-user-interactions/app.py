@@ -5,13 +5,19 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from pathlib import Path
 from dotenv import load_dotenv
-
+import json
+import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+from dotenv import load_dotenv
+from models.db_models import Article
 
 # Load environment variables from .env file
 load_dotenv()
 
 # Get environment variables
 PWD = os.getenv('PWD')
+print(PWD)
 
 # Ensure that the PWD is set
 if not PWD:
@@ -20,6 +26,18 @@ if not PWD:
 
 # Initialize the OpenAI LLM
 llm = ChatOpenAI(model='gpt-4o-mini')
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Get the database URL from environment variables
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+# Create the database engine
+engine = create_engine(DATABASE_URL)
+
+# Create a configured "Session" class
+SessionLocal = sessionmaker(bind=engine)
 
 def user_query(prompt: str, embedder: str) -> str:
     """
@@ -33,18 +51,33 @@ def user_query(prompt: str, embedder: str) -> str:
         str: The output from the script execution.
     """
     try:
-        script_path = Path(f"{PWD}/news-generated-by-rag/data-retrieval/scripts/search_news.py")
+        script_path = Path(f"{PWD}/../data-retrieval/scripts/search_news.py")
         # Build the command
         command = [
             "python", str(script_path),
             "--prompt", prompt,
-            "--embedder", embedder
+            "--embedder", embedder,
+            "--limit", "5",
+            "--local",
+            "--json",
         ]
 
         # Execute the command and capture the output
         result = subprocess.run(command, capture_output=True, text=True, check=True)
 
-        return result.stdout  # Return the script output
+        data = json.loads(str(result.stdout))
+
+        original_ids = [result['id'] for result in data['results']]
+
+        db = SessionLocal()
+
+        articles = db.query(Article).filter(
+            Article.id.in_(original_ids)
+        ).all()
+
+        db.close()
+
+        return "\n".join([f"{article.title}\n{article.content}\n\n\n" for article in articles])
     except subprocess.CalledProcessError as e:
         return f"Error: {e.stderr}"
 
@@ -71,15 +104,14 @@ def main():
                     return
 
                 # Prepare the prompt
-                system_template = """You are an AI assistant that answers question about news articles in Spanish."""
+                system_template = """Eres un asistente de inteligencia artificial que responde preguntas sobre artículos de noticias en español."""
                 prompt = f"""
-                            User Query: {user_input}
+                            Consulta del Usuario:  {user_input}
 
-                            Search Results:
+                            Resultados de la Búsqueda:
                             {search_results}
 
-                            Please provide a concise summary of the most relevant information in professional and neutral language
-
+                            Por favor, proporcioná un resumen conciso de la información más relevante con un tono profesional y neutral.
                         """
 
                 prompt_template = ChatPromptTemplate.from_messages(

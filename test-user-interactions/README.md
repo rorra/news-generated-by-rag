@@ -19,6 +19,7 @@ OPENAI_API_KEY=*****
 
 # Usage
 ```bash
+export PYTHONPATH="$(pwd):$(pwd)/../data-retrieval:$(pwd)/../data-mining"
 streamlit run app.py
 ```
 
