@@ -7,9 +7,9 @@
     "Sociedad": 50
   },
   "query_types": {
-    "semantic_only": 10,
-    "keyword_only": 110,
-    "combined": 110
+    "semantic_only": 65,
+    "keyword_only": 55,
+    "combined": 55
   },
   "with_date": 120,
   "with_section": 200,

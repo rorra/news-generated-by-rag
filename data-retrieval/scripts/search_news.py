@@ -13,6 +13,7 @@ from utils.common import load_config
 from storage.qdrant_manager import QdrantManager
 from config import SessionLocal
 from storage.data_loader import load_articles_from_db
+import json
 
 
 def format_keywords(keywords: List[tuple]) -> str:
@@ -20,18 +21,35 @@ def format_keywords(keywords: List[tuple]) -> str:
     return ', '.join([f"{kw} ({score:.3f})" for kw, score in keywords])
 
 
-def display_results(results: List[Dict], search_type: str, show_scores: bool = True):
-    """Display search results in a formatted manner."""
-    print(f"\nSearch type: {search_type}")
-    print(f"Found {len(results)} results:\n")
+def display_results(results: List[Dict], search_type: str, show_scores: bool = True, json_output: bool = False):
+    """Display search results in a formatted manner or JSON."""
+    if True: # json_output:
+        # Prepare results for JSON output
+        json_results = [
+            {
+                "id": hit.get("id"),
+                "section": hit.get("section"),
+                "published_at": hit.get("published_at"),
+                "title": hit.get("title"),
+                "score": hit.get("score") if show_scores and 'score' in hit else None,
+                "keywords": hit.get("keywords"),
+                "newspaper": hit.get("newspaper")
+            }
+            for hit in results
+        ]
+        print(json.dumps({"search_type": search_type, "results": json_results}, indent=4))
+    else:
+        # Standard formatted output
+        print(f"\nSearch type: {search_type}")
+        print(f"Found {len(results)} results:\n")
 
-    for i, hit in enumerate(results, 1):
-        print(f"{i}. [{hit['section']} - {hit['published_at']}] {hit['title']}")
-        if show_scores and 'score' in hit:
-            print(f"   Similarity Score: {hit['score']:.4f}")
-        if hit['keywords']:
-            print(f"   Keywords: {format_keywords(hit['keywords'])}")
-        print(f"   Newspaper: {hit['newspaper']}\n")
+        for i, hit in enumerate(results, 1):
+            print(f"{i}. [{hit['section']} - {hit['published_at']}] {hit['title']}")
+            if show_scores and 'score' in hit:
+                print(f"   Similarity Score: {hit['score']:.4f}")
+            if hit['keywords']:
+                print(f"   Keywords: {format_keywords(hit['keywords'])}")
+            print(f"   Newspaper: {hit['newspaper']}\n")
 
 
 def search_news(
@@ -44,7 +62,8 @@ def search_news(
     limit: int = 20,
     embedder_type: str = "minilm",
     local: bool = True,
-    sort_by_keyword_score: bool = False
+    sort_by_keyword_score: bool = False,
+    json_output = False
 ):
     """Search for news articles using various criteria."""
     # Load environment variables and configuration
@@ -137,7 +156,7 @@ def search_news(
             )
 
         # Display results
-        display_results(results, search_type)
+        display_results(results, search_type, json_output)
 
     finally:
         session.close()
@@ -171,6 +190,9 @@ def main():
     parser.add_argument('--local', action='store_true',
                         help='Use local Qdrant')
 
+    # Output format
+    parser.add_argument('--json', action='store_true', help='Output results in JSON format')
+
     args = parser.parse_args()
 
     if not args.prompt and not args.keywords:
@@ -186,7 +208,8 @@ def main():
         limit=args.limit,
         embedder_type=args.embedder,
         local=args.local,
-        sort_by_keyword_score=args.sort_by_keyword_score
+        sort_by_keyword_score=args.sort_by_keyword_score,
+        json_output=args.json
     )
 
 
